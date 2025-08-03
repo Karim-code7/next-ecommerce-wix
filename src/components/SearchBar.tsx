@@ -8,8 +8,11 @@ const SerachBar = () => {
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const name = formData.get("name") as string;
+
+    let name = formData.get("name") as string;
     if (name) {
+      name = name.replace(/[\u200E\u200F\u202A-\u202E]/g, ""); // يحذف الرموز الخفية
+
       router.push("/list?name=" + name);
     }
   };

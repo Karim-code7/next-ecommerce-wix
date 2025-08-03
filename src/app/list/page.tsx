@@ -24,13 +24,21 @@ const ListPage = async ({ searchParams }: { searchParams: any }) => {
           </button>
         </div>
         <div className="relative w-1/3">
-          <Image src="/woman.png" alt="" fill className="object-contain" />
+          <Image
+            src="/woman.png"
+            alt=""
+            fill
+            className="object-contain"
+            sizes="(max-width: 640px) 100vw, 50vw"
+          />
         </div>
       </div>
       {/* FILTER */}
-      <Filter />
+      <Filter searchParams={searchParams} />
       {/* PRODUCTS */}
-      <h1 className="mt-12 text-xl font-semibold">Shose For You</h1>
+      <h1 className="mt-12 text-xl font-semibold">
+        {category.collection?.name} For You
+      </h1>
       <Suspense fallback={"loding..."}>
         <ProductList
           categoryId={

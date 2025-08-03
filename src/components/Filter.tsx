@@ -2,17 +2,18 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-const Filter = () => {
+const Filter = ({ searchParams }: { searchParams: any }) => {
   const pathName = usePathname();
-
-  const searchParams = useSearchParams();
-
+  const searchParamss = searchParams;
   const { replace } = useRouter();
+
   const handleFilterChange = (
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
   ) => {
     const { name, value } = e.target;
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParamss);
+    params.set(name, value);
+    replace(`${pathName}?${params.toString()}`);
   };
   return (
     <div className="mt-12 flex justify-between">
@@ -23,7 +24,7 @@ const Filter = () => {
           className="py-2 px-4 rounded-2xl text-xs font-medium bg-[#EBEDED]"
           onChange={handleFilterChange}
         >
-          <option>Type</option>
+          <option value={""}>Type</option>
           <option value="physical">Physical</option>
           <option value="digital">Digital</option>
         </select>

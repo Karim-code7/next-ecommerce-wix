@@ -3,7 +3,8 @@ import { products } from "@wix/stores";
 import Image from "next/image";
 import Link from "next/link";
 import DOMPurify from "isomorphic-dompurify";
-const PRODUCT_PER_PAGE = 20;
+import Pagination from "./Pagination";
+const PRODUCT_PER_PAGE = 1;
 const ProductList = async ({
   categoryId,
   limit,
@@ -14,19 +15,33 @@ const ProductList = async ({
   searchParams?: any;
 }) => {
   const wixClient = await wixClientServer();
-  let res;
-  if (categoryId) {
-    res = await wixClient.products
-      .queryProducts()
-      .eq("collectionIds", categoryId)
-      .limit(limit || PRODUCT_PER_PAGE)
-      .find();
-  } else {
-    res = await wixClient.products
-      .queryProducts()
-      .limit(limit || PRODUCT_PER_PAGE)
-      .find();
-  }
+
+  const productQuery = wixClient.products
+    .queryProducts()
+    .startsWith("name", searchParams?.name || "")
+    .eq("collectionIds", categoryId)
+    .hasSome("productType", [searchParams?.type || "physical", "digital"])
+    .gt("priceData.price", searchParams?.min || 0)
+    .lt("priceData.price", searchParams?.max || 999999)
+    .limit(limit || PRODUCT_PER_PAGE)
+    .skip(
+      searchParams?.page
+        ? parseInt(searchParams.page) * (limit || PRODUCT_PER_PAGE)
+        : 0
+    );
+
+  const res = await productQuery.find();
+  searchParams?.sort
+    ? res.items.sort((a, b) => {
+        const [sortType, sortBy] = searchParams.sort.split(" ");
+        const aPrice = a.priceData?.price || 0;
+        const bPrice = b.priceData?.price || 0;
+
+        if (sortType === "asc") return aPrice - bPrice;
+        if (sortType === "desc") return bPrice - aPrice;
+        return 0;
+      })
+    : res.items;
   return (
     <div className=" mt-12 flex gap-x-8  gap-y-16 justify-between flex-wrap">
       {res.items.map((product: products.Product) => (
@@ -74,6 +89,12 @@ const ProductList = async ({
           </button>
         </Link>
       ))}
+      <Pagination
+        currentPage={res.currentPage || 0}
+        hasprev={res.hasPrev()}
+        hasnext={res.hasNext()}
+        searchParams={searchParams}
+      />
     </div>
   );
 };

@@ -3,7 +3,6 @@ import CusomizeProducts from "@/components/CusomizeProducts";
 import ProductsImages from "@/components/ProductsImages";
 import { wixClientServer } from "@/lib/WixClientServer";
 import { notFound } from "next/navigation";
-import React from "react";
 const SinglePage = async ({ params }: { params: { slug: string } }) => {
   const wixClient = await wixClientServer();
   const products = await wixClient.products
@@ -15,7 +14,6 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
     return notFound();
   }
   const product = products.items[0];
-  console.log(product.variants);
   return (
     <div className=" flex flex-col lg:flex-row  gap-16 px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64 relative">
       {/* IMAGE */}

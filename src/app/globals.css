@@ -8,3 +8,7 @@
 .scrollbar-hide {
   scrollbar-width: none;
 }
+.img-auto {
+  width: auto !important;
+  height: auto !important;
+}
