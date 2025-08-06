@@ -1,9 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
+import { SiDiscover, SiPaypal, SiMastercard, SiVisa } from "react-icons/si";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaYoutube,
+  FaPinterestP,
+  FaXTwitter,
+} from "react-icons/fa6"; // أو من Fa/FaBrands حسب الإصدار
 
 const Footer = () => {
   return (
-    <div className="p-24 px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64  bg-gray-100 text-sm mt-24">
+    <div className="pt-16 pb-12 px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64  bg-gray-100 text-sm min-h-[590px]  ">
       {/* Top */}
       <div className=" flex justify-between flex-col md:flex-row gap-24">
         {/* LEFT */}
@@ -20,17 +28,17 @@ const Footer = () => {
           </p>
           <span className="font-semibold">hello@gmail.dev</span>
           <span className="font-semibold">+1 234 567 890</span>
-          <div className="flex  gap-6">
-            <Image src="/facebook.png" alt="" width={16} height={16} />
-            <Image src="/Instagram.png" alt="" width={16} height={16} />
-            <Image src="/youtube.png" alt="" width={16} height={16} />
-            <Image src="/pinterest.png" alt="" width={16} height={16} />
-            <Image src="/x.png" alt="" width={16} height={16} />
+          <div className="flex gap-6 text-gray-700 text-xl">
+            <FaFacebookF />
+            <FaInstagram />
+            <FaYoutube />
+            <FaPinterestP />
+            <FaXTwitter />
           </div>
         </div>
         {/* CETNTER */}
-        <div className="hidden lg:flex justify-between w-1/2">
-          <div className="flex flex-col justify-between">
+        <div className="hidden lg:flex justify-between w-1/2 h-[350px] ">
+          <div className="flex flex-col justify-between ">
             <h1 className="font-medium text-lg">COMPANY</h1>
             <div className="flex flex-col gap-6">
               <Link href="">About Us</Link>
@@ -78,42 +86,11 @@ const Footer = () => {
             <button className=" w-1/4 bg-lama text-white">Join</button>
           </div>
           <span className="font-semibold">Secure Payments </span>
-          <div className=" flex justify-between">
-            <Image
-              src="/discover.png"
-              alt="Discover"
-              className="img-auto"
-              width={40}
-              height={40}
-            />
-            <Image
-              src="/skrill.png"
-              alt="Skrill"
-              className="img-auto"
-              width={40}
-              height={40}
-            />
-            <Image
-              src="/paypal.png"
-              alt="PayPal"
-              className="img-auto"
-              width={40}
-              height={40}
-            />
-            <Image
-              src="/mastercard.png"
-              alt="Mastercard"
-              width={40}
-              height={40}
-              className="img-auto"
-            />
-            <Image
-              src="/visa.png"
-              alt="Visa"
-              width={40}
-              height={40}
-              className="img-auto"
-            />
+          <div className="flex justify-between items-center gap-4 text-gray-700">
+            <SiDiscover size={32} />
+            <SiPaypal size={32} />
+            <SiMastercard size={32} />
+            <SiVisa size={32} />
           </div>
         </div>
       </div>

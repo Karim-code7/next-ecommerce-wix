@@ -5,16 +5,29 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import CartModal from "./CartModal";
+import { useWixClient } from "@/hooks/useWixClient";
 
 const Navicons = () => {
   const router = useRouter();
-  const isLoggedIn = false;
+  let isLoggedIn = false;
   const handleProfileClick = () => {
     if (isLoggedIn) {
       router.push("/login");
     }
     setIsProfileOpen(!isProfileOpen);
   };
+
+  // AUTH WUTH NEXT MANAGED AUTH
+  // const wixClient = useWixClient();
+  // const login = async () => {
+  //   const loginRequestData = wixClient.auth.generateOAuthData(
+  //     "http://localhost:3000" // Redirect URI
+  //   );
+  //   console.log(loginRequestData);
+  //   localStorage.setItem("oAuthRedirectData", JSON.stringify(loginRequestData));
+  //   const { authUrl } = await wixClient.auth.getAuthUrl(loginRequestData);
+  //   window.location.href = authUrl;
+  // };
 
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
@@ -27,11 +40,12 @@ const Navicons = () => {
         height={22}
         alt=""
         className="cursor-pointer"
+        // onClick={login}
         onClick={handleProfileClick}
       />
       {isProfileOpen && (
         <div className="absolute p-4 rounded-md top-12 l-0 text-sm shadow-[0_3px_10px_rgba(0,0,0,0.2)] z-20 ">
-          <Link href="/">Profile</Link>
+          <Link href="login">Profile</Link>
           <div className="mt-2 cursor-pointer">Logout</div>
         </div>
       )}

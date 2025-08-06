@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import DOMPurify from "isomorphic-dompurify";
 import Pagination from "./Pagination";
-const PRODUCT_PER_PAGE = 1;
+const PRODUCT_PER_PAGE = 4;
 const ProductList = async ({
   categoryId,
   limit,
