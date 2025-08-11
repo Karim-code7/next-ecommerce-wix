@@ -1,19 +1,20 @@
 "use client";
+import { useWixClient } from "@/hooks/useWixClient";
 import { useEffect, useState } from "react";
 
 const Add = ({
   productId,
-  varintId,
+  variantId,
   stockNumber,
 }: {
   productId: string | undefined;
-  varintId: string | undefined;
+  variantId: string | undefined;
   stockNumber: number | undefined;
 }) => {
+  console.log(variantId);
   // const stock = 4;
   const [quantity, setQuantity] = useState(0);
   const saveStock = stockNumber ?? 0;
-
   useEffect(() => {
     if (saveStock === 0) {
       setQuantity(0);
@@ -21,6 +22,27 @@ const Add = ({
       setQuantity(1);
     }
   }, [saveStock]);
+
+  const wixClient = useWixClient();
+
+  const addItem = async () => {
+    const response = await wixClient.currentCart.addToCurrentCart({
+      lineItems: [
+        {
+          catalogReference: {
+            appId: "215238eb-22a5-4c36-9e7b-e7c08025e04e",
+            catalogItemId: productId,
+            ...(variantId && { options: { variantId } }),
+          },
+          quantity: stockNumber,
+        },
+      ],
+    });
+    const product = await wixClient.products.getProduct(productId!);
+    console.log(product);
+    console.log(response);
+  };
+
   const handleQuantityChange = (operation: "increase" | "decrease") => {
     setQuantity((prevQuantity) => {
       if (operation === "increase" && prevQuantity < saveStock) {
@@ -73,7 +95,10 @@ const Add = ({
             </div>
           )}
         </div>
-        <button className="w-36 text-sm rounded-3xl ring-1 ring-lama text-lama py-2 px-4 hover:bg-lama hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:text-white disabled:ring-none">
+        <button
+          onClick={() => addItem()}
+          className="w-36 text-sm rounded-3xl ring-1 ring-lama text-lama py-2 px-4 hover:bg-lama hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:text-white disabled:ring-none"
+        >
           {" "}
           Add to Cart
         </button>

@@ -23,7 +23,6 @@ const CusomizeProducts = ({
   useEffect(() => {
     const varint = variants.find((v) => {
       const varintChoices = v.choices;
-      console.log(selctedOption);
       if (
         Object.keys(selctedOption).length !== Object.keys(varintChoices!).length
       )
@@ -108,7 +107,7 @@ const CusomizeProducts = ({
       ))}
       <Add
         productId={productId}
-        varintId={selctedVarint?._id || "00000000-0000-0000-0000-000000000000"}
+        variantId={selctedVarint?._id || "00000000-0000-0000-0000-000000000000"}
         stockNumber={selctedVarint?.stock?.quantity || 0}
       />
       {/* 

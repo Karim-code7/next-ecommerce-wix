@@ -2,20 +2,46 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import CartModal from "./CartModal";
 import { useWixClient } from "@/hooks/useWixClient";
+import Cookies from "js-cookie";
 
 const Navicons = () => {
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isLoding, setIsLoding] = useState(false);
+
+  const wixClient = useWixClient();
+  const isLoggedIn = wixClient.auth.loggedIn();
   const router = useRouter();
-  let isLoggedIn = false;
+  const pathName = usePathname();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.push("/login");
+    }
+  }, [isLoggedIn]);
+
   const handleProfileClick = () => {
     if (isLoggedIn) {
-      router.push("/login");
+      setIsProfileOpen(!isProfileOpen);
     }
     setIsProfileOpen(!isProfileOpen);
   };
+
+  const handleLogout = async () => {
+    setIsLoding(true);
+    Cookies.remove("refreshToken");
+    const { logoutUrl } = await wixClient.auth.logout(window.location.href);
+    setIsLoding(false);
+
+    router.push(logoutUrl);
+  };
+
+  // const { logoutUrl } = await wixClient.auth.logout(window.location.href);
 
   // AUTH WUTH NEXT MANAGED AUTH
   // const wixClient = useWixClient();
@@ -29,9 +55,6 @@ const Navicons = () => {
   //   window.location.href = authUrl;
   // };
 
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
   return (
     <div className="flex items-center xl:gap-6 gap-4 relative">
       <Image
@@ -44,9 +67,11 @@ const Navicons = () => {
         onClick={handleProfileClick}
       />
       {isProfileOpen && (
-        <div className="absolute p-4 rounded-md top-12 l-0 text-sm shadow-[0_3px_10px_rgba(0,0,0,0.2)] z-20 ">
+        <div className="absolute p-4 rounded-md bg-white top-12 l-0 text-sm shadow-[0_3px_10px_rgba(0,0,0,0.2)] z-20 ">
           <Link href="login">Profile</Link>
-          <div className="mt-2 cursor-pointer">Logout</div>
+          <div className="mt-2 cursor-pointer" onClick={() => handleLogout()}>
+            {isLoggedIn ? "Logout" : "Login"}
+          </div>
         </div>
       )}
       <Image

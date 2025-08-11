@@ -2,9 +2,9 @@
 
 import { useWixClient } from "@/hooks/useWixClient";
 import { LoginState } from "@wix/sdk";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
-
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 enum MODE {
   LOGIN = "LOGIN",
   REGISTER = "REGISTER",
@@ -14,6 +14,20 @@ enum MODE {
 
 const LoginPage = () => {
   const wixClient = useWixClient();
+  const router = useRouter();
+
+  const isLoggedIn = wixClient.auth.loggedIn();
+
+  console.log(isLoggedIn);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/");
+    }
+  }, [isLoggedIn]);
+  const myClass =
+    "text-sm underline cursor-pointer  text-blue-600 font-semibold";
+
   const [mode, setMode] = useState(MODE.LOGIN);
 
   const [username, setUsername] = useState("");
@@ -25,8 +39,6 @@ const LoginPage = () => {
   const [message, setMessage] = useState("");
 
   const pathName = usePathname();
-  const myClass =
-    "text-sm underline cursor-pointer  text-blue-600 font-semibold";
   const formtTitle =
     mode === MODE.LOGIN
       ? "Log in"
@@ -51,49 +63,75 @@ const LoginPage = () => {
     setError("");
 
     try {
-      let rsponse;
+      let response;
 
       switch (mode) {
         case MODE.LOGIN:
-          rsponse = await wixClient.auth.login({
+          response = await wixClient.auth.login({
             email,
             password,
           });
           break;
-      }
-      switch (mode) {
+
         case MODE.REGISTER:
-          rsponse = await wixClient.auth.register({
+          response = await wixClient.auth.register({
             email,
             password,
             profile: { nickname: username },
           });
           break;
-      }
-      switch (mode) {
+
         case MODE.RESET_PASSWORD:
-          rsponse = await wixClient.auth.sendPasswordResetEmail(
+          response = await wixClient.auth.sendPasswordResetEmail(
             email,
             pathName
           );
+          setMessage("The code has been sent");
           break;
-      }
-      switch (mode) {
+
         case MODE.EAMIL_VERIFICATION:
-          rsponse = await wixClient.auth.processVerification({
+          response = await wixClient.auth.processVerification({
             verificationCode: email,
           });
           break;
         default:
           break;
       }
-      console.log("Response:", rsponse);
+      console.log("Response:", response);
 
-      switch (rsponse?.loginState) {
+      switch (response?.loginState) {
         case LoginState.SUCCESS:
           setMessage("Successful You are being redirected.");
+          const tokens = await wixClient.auth.getMemberTokensForDirectLogin(
+            response.data.sessionToken
+          );
+          wixClient.auth.setTokens(tokens);
+          Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
+            expires: 2,
+          });
+          router.push("/");
           break;
 
+        case LoginState.FAILURE:
+          if (response.errorCode === "invalidEmail") {
+            setMessage("Invalid email address");
+          } else if (response.errorCode === "invalidPassword") {
+            setMessage("Invalid password");
+          } else if (response.errorCode === "emailAlreadyExists") {
+            setMessage("Email already exists");
+          } else if (response.errorCode === "resetPassword") {
+            setMessage("You need to reset your password");
+          } else {
+            setMessage("Somthing went wrong");
+          }
+          break;
+
+        case LoginState.EMAIL_VERIFICATION_REQUIRED:
+          setMode(MODE.EAMIL_VERIFICATION);
+          break;
+
+        case LoginState.OWNER_APPROVAL_REQUIRED:
+          setMessage("Your account is pending approval");
         default:
           break;
       }
@@ -119,6 +157,7 @@ const LoginPage = () => {
               type="text"
               name="username"
               placeholder="john"
+              autoComplete="username"
               className="ring-2 ring-gray-300 rounded-md p-4"
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -131,6 +170,7 @@ const LoginPage = () => {
               type="email"
               name="email"
               placeholder="john@example.com"
+              autoComplete="email"
               className="ring-2 ring-gray-300 rounded-md p-4"
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -154,6 +194,7 @@ const LoginPage = () => {
               type="password"
               name="password"
               placeholder="Enter your password"
+              autoComplete="current-password"
               className="ring-2 ring-gray-300 rounded-md p-4"
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -187,7 +228,17 @@ const LoginPage = () => {
             Go back to login
           </div>
         )}
-        {message && <div className="text-green-600 text-sm">{message}</div>}
+        {message && (
+          <div
+            className={`text-sm ${
+              message === "Successful You are being redirected."
+                ? "text-green-600"
+                : " text-red-600"
+            }`}
+          >
+            {message}
+          </div>
+        )}
       </form>
     </div>
   );
