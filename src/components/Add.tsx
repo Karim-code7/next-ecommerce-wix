@@ -1,4 +1,5 @@
 "use client";
+import { useCartStore } from "@/hooks/useCardStore";
 import { useWixClient } from "@/hooks/useWixClient";
 import { useEffect, useState } from "react";
 
@@ -11,7 +12,6 @@ const Add = ({
   variantId: string | undefined;
   stockNumber: number | undefined;
 }) => {
-  console.log(variantId);
   // const stock = 4;
   const [quantity, setQuantity] = useState(0);
   const saveStock = stockNumber ?? 0;
@@ -24,24 +24,7 @@ const Add = ({
   }, [saveStock]);
 
   const wixClient = useWixClient();
-
-  const addItem = async () => {
-    const response = await wixClient.currentCart.addToCurrentCart({
-      lineItems: [
-        {
-          catalogReference: {
-            appId: "215238eb-22a5-4c36-9e7b-e7c08025e04e",
-            catalogItemId: productId,
-            ...(variantId && { options: { variantId } }),
-          },
-          quantity: stockNumber,
-        },
-      ],
-    });
-    const product = await wixClient.products.getProduct(productId!);
-    console.log(product);
-    console.log(response);
-  };
+  const { addItem } = useCartStore();
 
   const handleQuantityChange = (operation: "increase" | "decrease") => {
     setQuantity((prevQuantity) => {
@@ -96,7 +79,7 @@ const Add = ({
           )}
         </div>
         <button
-          onClick={() => addItem()}
+          onClick={() => addItem(wixClient, productId!, variantId!, quantity)}
           className="w-36 text-sm rounded-3xl ring-1 ring-lama text-lama py-2 px-4 hover:bg-lama hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:text-white disabled:ring-none"
         >
           {" "}

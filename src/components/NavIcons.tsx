@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import CartModal from "./CartModal";
 import { useWixClient } from "@/hooks/useWixClient";
 import Cookies from "js-cookie";
+import { useCartStore } from "@/hooks/useCardStore";
 
 const Navicons = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -37,9 +38,17 @@ const Navicons = () => {
     Cookies.remove("refreshToken");
     const { logoutUrl } = await wixClient.auth.logout(window.location.href);
     setIsLoding(false);
-
+    setIsProfileOpen(false);
     router.push(logoutUrl);
   };
+
+  const { cart, counter, getCart } = useCartStore();
+
+  const wixCalient = useWixClient();
+
+  useEffect(() => {
+    getCart(wixCalient);
+  }, [wixCalient, getCart]);
 
   // const { logoutUrl } = await wixClient.auth.logout(window.location.href);
 
@@ -87,7 +96,7 @@ const Navicons = () => {
       >
         <Image src="/cart.png" width={22} height={22} alt="" />
         <div className="absolute -top-4 -right-4 rounded-full  w-6 h-6 text-white text-sm bg-lama   z-20 flex justify-center items-center  ">
-          2
+          {counter}
         </div>
       </div>
       {isCartOpen && <CartModal />}
