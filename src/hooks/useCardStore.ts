@@ -1,5 +1,7 @@
 import { create } from "zustand";
 import { currentCart } from "@wix/ecom";
+import { createClient } from "@wix/sdk";
+
 import { WixClient } from "@/context/WixContext";
 type cartState = {
   cart: currentCart.Cart;
@@ -26,13 +28,27 @@ export const useCartStore = create<cartState>((set) => ({
   isLoding: true,
   counter: 0,
   getCart: async (wixClient) => {
-    const cart = await wixClient.currentCart.getCurrentCart();
-    set({
-      cart: cart || [],
-      isLoding: false,
-      counter: cart?.lineItems?.length || 0,
-    });
+    try {
+      const cart = await wixClient.currentCart.getCurrentCart();
+      set({
+        cart: cart || [],
+        isLoding: false,
+        counter: cart?.lineItems?.length || 0,
+      });
+    } catch (error: any) {
+      if (error?.details?.applicationError?.code === "OWNED_CART_NOT_FOUND") {
+        set({
+          cart: [] as currentCart.Cart,
+          isLoding: false,
+          counter: 0,
+        });
+      } else {
+        console.error("Error fetching cart:", error);
+        set({ cart: [] as currentCart.Cart, isLoding: false, counter: 0 });
+      }
+    }
   },
+
   addItem: async (wixClient, productId, variantId, quantity) => {
     set((state) => ({ ...state, isLoding: true }));
     const response = await wixClient.currentCart.addToCurrentCart({
@@ -65,3 +81,6 @@ export const useCartStore = create<cartState>((set) => ({
     });
   },
 }));
+function get() {
+  throw new Error("Function not implemented.");
+}

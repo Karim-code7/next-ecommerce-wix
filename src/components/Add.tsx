@@ -24,8 +24,8 @@ const Add = ({
   }, [saveStock]);
 
   const wixClient = useWixClient();
-  const { addItem } = useCartStore();
-
+  const { addItem, isLoding } = useCartStore();
+  console.log(isLoding);
   const handleQuantityChange = (operation: "increase" | "decrease") => {
     setQuantity((prevQuantity) => {
       if (operation === "increase" && prevQuantity < saveStock) {
@@ -81,6 +81,7 @@ const Add = ({
         <button
           onClick={() => addItem(wixClient, productId!, variantId!, quantity)}
           className="w-36 text-sm rounded-3xl ring-1 ring-lama text-lama py-2 px-4 hover:bg-lama hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:text-white disabled:ring-none"
+          disabled={isLoding || saveStock < 1}
         >
           {" "}
           Add to Cart

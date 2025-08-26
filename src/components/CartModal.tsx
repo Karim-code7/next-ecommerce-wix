@@ -4,13 +4,14 @@ import { useCartStore } from "@/hooks/useCardStore";
 import Image from "next/image";
 import { media as wixMedia } from "@wix/sdk";
 import { useWixClient } from "@/hooks/useWixClient";
+import Link from "next/link";
 
 const CartModal = () => {
   const { cart, isLoding, removeItem } = useCartStore();
   const wixClient = useWixClient();
   return (
     <div className="absolute top-12 right-0  p-4 rounded-md   shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white flex flex-col gap-6 z-20">
-      {!cart.lineItems ? (
+      {!cart.lineItems?.length ? (
         <div className=""> Your cart is empty</div>
       ) : (
         <>
@@ -87,12 +88,18 @@ const CartModal = () => {
               <button className="rounded-md py-3 px-4 ring-1 ring-gray-300">
                 View Cart
               </button>
-              <button
-                className="bg-black text-white rounded-md py-3 px-4  disabled:cursor-not-allowed disabled:opacity-75"
-                disabled={isLoding}
+              <Link
+                className={`bg-black text-white rounded-md py-3 px-4 ${
+                  isLoding
+                    ? "cursor-not-allowed opacity-75 pointer-events-none"
+                    : ""
+                }`}
+                href={isLoding ? "#" : "/checkout"}
+                tabIndex={isLoding ? -1 : 0}
+                aria-disabled={isLoding}
               >
                 Checkout
-              </button>
+              </Link>
             </div>
           </div>
         </>

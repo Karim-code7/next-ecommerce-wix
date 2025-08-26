@@ -35,7 +35,6 @@ const CusomizeProducts = ({
     });
     SetselctedVarint(varint);
   }, [selctedOption]);
-
   const isVariantInStock = (choices: { [key: string]: string }) => {
     return variants.some((variant) => {
       const variantChoices = variant.choices;
@@ -110,6 +109,7 @@ const CusomizeProducts = ({
         variantId={selctedVarint?._id || "00000000-0000-0000-0000-000000000000"}
         stockNumber={selctedVarint?.stock?.quantity || 0}
       />
+
       {/* 
           <ul className=" flex items-center gap-3">
             <li className="w-8 h-8 rounded-full ring-gray-300 cursor-pointer relative bg-red-500">

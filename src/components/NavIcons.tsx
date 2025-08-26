@@ -20,12 +20,6 @@ const Navicons = () => {
   const router = useRouter();
   const pathName = usePathname();
 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      router.push("/login");
-    }
-  }, [isLoggedIn]);
-
   const handleProfileClick = () => {
     if (isLoggedIn) {
       setIsProfileOpen(!isProfileOpen);
