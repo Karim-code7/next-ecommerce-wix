@@ -43,7 +43,7 @@ const ProductList = async ({
       })
     : res.items;
   return (
-    <div className=" mt-12 flex gap-x-8  gap-y-16 justify-between flex-wrap">
+    <div className="   mt-12 flex gap-x-8  gap-y-16 justify-between flex-wrap">
       {res.items.map((product: products.Product) => (
         <Link
           key={product._id}
@@ -89,12 +89,14 @@ const ProductList = async ({
           </button>
         </Link>
       ))}
-      <Pagination
-        currentPage={res.currentPage || 0}
-        hasprev={res.hasPrev()}
-        hasnext={res.hasNext()}
-        searchParams={searchParams}
-      />
+      {searchParams?.cat || searchParams?.name ? (
+        <Pagination
+          currentPage={res.currentPage || 0}
+          hasprev={res.hasPrev()}
+          hasnext={res.hasNext()}
+          searchParams={searchParams}
+        />
+      ) : null}
     </div>
   );
 };

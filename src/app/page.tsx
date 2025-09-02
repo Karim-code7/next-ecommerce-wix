@@ -22,7 +22,7 @@ const HomePage = async () => {
   return (
     <div className="">
       <Slider />
-      <div className="mt-24  px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64 ">
+      <div className=" bg-white pt-24  px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64 ">
         <h1 className="text-xl">Featured Product</h1>
         <Suspense fallback={"loding"}>
           <ProductList
@@ -31,7 +31,7 @@ const HomePage = async () => {
           />
         </Suspense>
       </div>
-      <div className="mt-24  ">
+      <div className="pt-24  bg-white ">
         <h1 className="text-xl  px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64 mb-12">
           Categories
         </h1>
@@ -39,7 +39,7 @@ const HomePage = async () => {
           <CategoryList />
         </Suspense>
       </div>
-      <div className="mt-24  px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64 ">
+      <div className="pt-24  bg-white  px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64 ">
         <h1 className="text-xl">New Product</h1>
       </div>
       {/* <ProductList /> */}

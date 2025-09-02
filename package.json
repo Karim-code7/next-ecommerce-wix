@@ -9,7 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^7.9.0",
     "@wix/ecom": "^1.0.1293",
+    "@wix/members": "^1.0.323",
+    "@wix/redirects": "^1.0.94",
     "@wix/sdk": "^1.15.24",
     "@wix/stores": "^1.0.485",
     "i": "^0.3.7",
@@ -17,8 +20,10 @@
     "js-cookie": "^3.0.5",
     "next": "14.2.2",
     "react": "^18",
+    "react-confetti": "^6.4.0",
     "react-dom": "^18",
     "react-icons": "^5.5.0",
+    "stripe": "^18.5.0",
     "zustand": "^5.0.7"
   },
   "devDependencies": {

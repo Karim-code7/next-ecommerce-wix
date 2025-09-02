@@ -15,7 +15,7 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
   }
   const product = products.items[0];
   return (
-    <div className=" pb-24 flex flex-col lg:flex-row  gap-16 px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64 relative">
+    <div className="  bg-white  pb-24 flex flex-col lg:flex-row gap-16 px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64 relative">
       {/* IMAGE */}
       <div className="w-full  lg:w-1/2 lg:sticky  top-20 h-max">
         <ProductsImages items={product.media?.items} />

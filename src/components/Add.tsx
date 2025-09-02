@@ -22,10 +22,8 @@ const Add = ({
       setQuantity(1);
     }
   }, [saveStock]);
-
   const wixClient = useWixClient();
   const { addItem, isLoding } = useCartStore();
-  console.log(isLoding);
   const handleQuantityChange = (operation: "increase" | "decrease") => {
     setQuantity((prevQuantity) => {
       if (operation === "increase" && prevQuantity < saveStock) {

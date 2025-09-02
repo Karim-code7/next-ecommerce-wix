@@ -2,44 +2,48 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useContext, useRef } from "react";
 import CartModal from "./CartModal";
 import { useWixClient } from "@/hooks/useWixClient";
 import Cookies from "js-cookie";
 import { useCartStore } from "@/hooks/useCardStore";
+import Profile from "./Profile";
+import { UIContext } from "@/context/UIContext";
+import { useUI } from "@/context/UIContext";
 
 const Navicons = () => {
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isLoding, setIsLoding] = useState(false);
-
   const wixClient = useWixClient();
   const isLoggedIn = wixClient.auth.loggedIn();
   const router = useRouter();
-  const pathName = usePathname();
 
-  const handleProfileClick = () => {
-    if (isLoggedIn) {
-      setIsProfileOpen(!isProfileOpen);
-    }
-    setIsProfileOpen(!isProfileOpen);
-  };
+  const {
+    isCartOpen,
+    isProfileOpen,
+    handleProfileClick,
+    handleCartOpen,
+    profileRef,
+    notificationRef,
+    cartRef,
+    setIsCartOpen,
+    setIsProfileOpen,
+  } = useUI();
 
   const handleLogout = async () => {
-    setIsLoding(true);
-    Cookies.remove("refreshToken");
-    const { logoutUrl } = await wixClient.auth.logout(window.location.href);
-    setIsLoding(false);
+    if (isLoggedIn) {
+      Cookies.remove("refreshToken");
+      const { logoutUrl } = await wixClient.auth.logout(window.location.href);
+      router.push(logoutUrl);
+    } else {
+      router.push("/login");
+    }
+    setIsCartOpen(false);
     setIsProfileOpen(false);
-    router.push(logoutUrl);
   };
 
   const { cart, counter, getCart } = useCartStore();
 
   const wixCalient = useWixClient();
-
   useEffect(() => {
     getCart(wixCalient);
   }, [wixCalient, getCart]);
@@ -59,7 +63,7 @@ const Navicons = () => {
   // };
 
   return (
-    <div className="flex items-center xl:gap-6 gap-4 relative">
+    <div ref={profileRef} className="flex items-center xl:gap-6 gap-4 relative">
       <Image
         src="/profile.png"
         width={22}
@@ -70,26 +74,43 @@ const Navicons = () => {
         onClick={handleProfileClick}
       />
       {isProfileOpen && (
-        <div className="absolute p-4 rounded-md bg-white top-12 l-0 text-sm shadow-[0_3px_10px_rgba(0,0,0,0.2)] z-20 ">
-          <Link href="login">Profile</Link>
-          <div className="mt-2 cursor-pointer" onClick={() => handleLogout()}>
+        <div className="profile w-[320px] flex flex-col items-center absolute p-8 rounded-md bg-white top-12 right-14 text-sm shadow-[0_3px_10px_rgba(0,0,0,0.8)] z-20">
+          <Profile />
+          {isLoggedIn && (
+            <Link
+              className="bg-blue-600 w-full text-center rounded-md text-white py-2 "
+              href="login"
+            >
+              My Profile
+            </Link>
+          )}
+          <div
+            className={`mt-2 cursor-pointer w-full text-center rounded-md text-white py-2 ${
+              !isLoggedIn ? "bg-green-600" : "bg-red-600"
+            }`}
+            onClick={() => handleLogout()}
+          >
             {isLoggedIn ? "Logout" : "Login"}
           </div>
         </div>
       )}
+
       <Image
+        ref={notificationRef} // هنا notification لو هتعمله نافذة خاصة بيه
         src="/notification.png"
         width={22}
         height={22}
         alt=""
         className="cursor-pointer"
       />
+
       <div
-        className="relative cursor-pointer "
-        onClick={() => setIsCartOpen((prev) => !prev)}
+        ref={cartRef}
+        className="relative cursor-pointer"
+        onClick={() => handleCartOpen()}
       >
         <Image src="/cart.png" width={22} height={22} alt="" />
-        <div className="absolute -top-4 -right-4 rounded-full  w-6 h-6 text-white text-sm bg-lama   z-20 flex justify-center items-center  ">
+        <div className="absolute -top-4 -right-4 rounded-full  w-6 h-6 text-white text-sm bg-lama z-20 flex justify-center items-center">
           {counter}
         </div>
       </div>

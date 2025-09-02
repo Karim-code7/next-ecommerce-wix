@@ -5,7 +5,7 @@ import { useState } from "react";
 const ProductsImages = ({ items }: { items: any }) => {
   const [index, setIndex] = useState(0);
   return (
-    <div className="flex items-center justify-center  flex-col h-full">
+    <div className=" flex items-center justify-center  flex-col h-full">
       <div className="  h-[380px] w-[380px]  lg:h-[500px] lg:w-[500px]   relative">
         <Image
           src={items[index].image?.url}

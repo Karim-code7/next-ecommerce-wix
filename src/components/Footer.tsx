@@ -7,11 +7,11 @@ import {
   FaYoutube,
   FaPinterestP,
   FaXTwitter,
-} from "react-icons/fa6"; // أو من Fa/FaBrands حسب الإصدار
+} from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <div className="pt-16 pb-12 px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64  bg-gray-100 text-sm min-h-[590px]  ">
+    <div className=" mt-24 pb-12 px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64  bg-gray-100 text-sm min-h-[590px]  ">
       {/* Top */}
       <div className=" flex justify-between flex-col md:flex-row gap-24">
         {/* LEFT */}

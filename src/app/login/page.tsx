@@ -18,13 +18,12 @@ const LoginPage = () => {
 
   const isLoggedIn = wixClient.auth.loggedIn();
 
-  console.log(isLoggedIn);
-
   useEffect(() => {
     if (isLoggedIn) {
       router.push("/");
     }
   }, [isLoggedIn]);
+
   const myClass =
     "text-sm underline cursor-pointer  text-blue-600 font-semibold";
 
@@ -37,8 +36,17 @@ const LoginPage = () => {
   const [isLoding, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const [cooldown, setCooldown] = useState(0);
+  useEffect(() => {
+    if (cooldown > 0) {
+      const timer = setInterval(() => setCooldown((c) => c - 1), 1000);
+      return () => clearInterval(timer);
+    }
+  }, [cooldown]);
 
-  const pathName = usePathname();
+  useEffect(() => {
+    setMessage("");
+  }, [mode]);
   const formtTitle =
     mode === MODE.LOGIN
       ? "Log in"
@@ -59,6 +67,7 @@ const LoginPage = () => {
 
   const handelSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isLoding) return; // يمنع السبام
     setIsLoading(true);
     setError("");
 
@@ -71,6 +80,7 @@ const LoginPage = () => {
             email,
             password,
           });
+          setCooldown(0);
           break;
 
         case MODE.REGISTER:
@@ -79,14 +89,26 @@ const LoginPage = () => {
             password,
             profile: { nickname: username },
           });
+          setCooldown(0);
+
           break;
 
         case MODE.RESET_PASSWORD:
-          response = await wixClient.auth.sendPasswordResetEmail(
-            email,
-            pathName
-          );
-          setMessage("The code has been sent");
+          try {
+            const redirectUrl = `${window.location.origin}/reset-password`;
+
+            response = await wixClient.auth.sendPasswordResetEmail(
+              email,
+              redirectUrl
+            );
+            setMessage("The reset link has been sent to your email");
+          } catch (err) {
+            setMessage(
+              `Too many attempts. Please try again after ${cooldown} minute`
+            );
+            setCooldown(60);
+            console.error("Error sending reset email:", err);
+          }
           break;
 
         case MODE.EAMIL_VERIFICATION:
@@ -97,7 +119,6 @@ const LoginPage = () => {
         default:
           break;
       }
-      console.log("Response:", response);
 
       switch (response?.loginState) {
         case LoginState.SUCCESS:
@@ -144,102 +165,127 @@ const LoginPage = () => {
   };
 
   return (
-    <div className=" h-[calc(100vh-80px)] px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64 flex items-center justify-center">
-      <form
-        className="flex flex-col gap-8 w-full max-w-lg shadow-2xl p-8 rounded-md"
-        onSubmit={handelSubmit}
-      >
-        <h1 className="text-2xl font-semibold">{formtTitle}</h1>
-        {mode === MODE.REGISTER ? (
-          <div className="flex flex-col gap-2">
-            <label className="text-sm">UserName</label>
-            <input
-              type="text"
-              name="username"
-              placeholder="john"
-              autoComplete="username"
-              className="ring-2 ring-gray-300 rounded-md p-4"
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-        ) : null}
-        {mode !== MODE.EAMIL_VERIFICATION ? (
-          <div className="flex flex-col gap-2">
-            <label className="text-sm text-gray-700">E-mail</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="john@example.com"
-              autoComplete="email"
-              className="ring-2 ring-gray-300 rounded-md p-4"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-        ) : (
-          <div className="flex flex-col gap-2">
-            <label className="text-sm text-gray-700">Verification Code</label>
-            <input
-              type="text"
-              name="emailCode"
-              placeholder="Code"
-              className="ring-2 ring-gray-300 rounded-md p-4"
-              onChange={(e) => setEmailCode(e.target.value)}
-            />
-          </div>
-        )}
-        {mode === MODE.LOGIN || mode === MODE.REGISTER ? (
-          <div className="flex flex-col gap-2">
-            <label className="text-sm text-gray-700">Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter your password"
-              autoComplete="current-password"
-              className="ring-2 ring-gray-300 rounded-md p-4"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-        ) : null}
-        {mode === MODE.LOGIN && (
-          <div className={myClass} onClick={() => setMode(MODE.RESET_PASSWORD)}>
-            Forgot Password
-          </div>
-        )}
-        <button
-          className="bg-lama  text-white p-2 rounded-md disabled:text-pink-200 disabled:cursor-not-allowed "
-          disabled={isLoding}
-        >
-          {isLoding ? "Loding..." : buttonTitle}
-        </button>
-        {error && <div className="text-red-600"></div>}
-        {mode === MODE.LOGIN && (
-          <div className={myClass} onClick={() => setMode(MODE.REGISTER)}>
-            {" "}
-            {"Don't"} have an account
-          </div>
-        )}
-        {mode === MODE.REGISTER && (
-          <div className={myClass} onClick={() => setMode(MODE.LOGIN)}>
-            Already have an account
-          </div>
-        )}
-        {mode === MODE.RESET_PASSWORD && (
-          <div className={myClass} onClick={() => setMode(MODE.LOGIN)}>
-            Go back to login
-          </div>
-        )}
-        {message && (
-          <div
-            className={`text-sm ${
-              message === "Successful You are being redirected."
-                ? "text-green-600"
-                : " text-red-600"
-            }`}
+    <div className=" bg-white  h-[calc(100vh-80px)] px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64 flex items-center justify-center">
+      {message === "The reset link has been sent to your email" ? (
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-green-600 mb-4">
+            ✅ Check your email
+          </h2>
+          <p className="text-gray-700">
+            We’ve sent a reset link to{" "}
+            <span className="font-bold">{email}</span>. Please check your inbox
+            and follow the instructions.
+          </p>
+          <button
+            onClick={() => setMode(MODE.LOGIN)}
+            className="mt-6 px-4 py-2 bg-blue-600 text-white rounded-lg"
           >
-            {message}
-          </div>
-        )}
-      </form>
+            Back to Login
+          </button>
+        </div>
+      ) : (
+        <form
+          className=" flex flex-col gap-8 w-full max-w-lg shadow-2xl p-8 rounded-md"
+          onSubmit={handelSubmit}
+        >
+          <h1 className="text-2xl font-semibold">{formtTitle}</h1>
+          {mode === MODE.REGISTER ? (
+            <div className="flex flex-col gap-2">
+              <label className="text-sm">UserName</label>
+              <input
+                type="text"
+                name="username"
+                placeholder="john"
+                autoComplete="username"
+                className="ring-2 ring-gray-300 rounded-md p-4"
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+          ) : null}
+          {mode !== MODE.EAMIL_VERIFICATION ? (
+            <div className="flex flex-col gap-2">
+              <label className="text-sm text-gray-700">E-mail</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="john@example.com"
+                autoComplete="email"
+                className="ring-2 ring-gray-300 rounded-md p-4"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+          ) : (
+            <div className="flex flex-col gap-2">
+              <label className="text-sm text-gray-700">Verification Code</label>
+              <input
+                type="text"
+                name="emailCode"
+                placeholder="Code"
+                className="ring-2 ring-gray-300 rounded-md p-4"
+                onChange={(e) => setEmailCode(e.target.value)}
+              />
+            </div>
+          )}
+          {mode === MODE.LOGIN || mode === MODE.REGISTER ? (
+            <div className="flex flex-col gap-2">
+              <label className="text-sm text-gray-700">Password</label>
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                autoComplete="current-password"
+                className="ring-2 ring-gray-300 rounded-md p-4"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+          ) : null}
+          {mode === MODE.LOGIN && (
+            <div
+              className={myClass}
+              onClick={() => setMode(MODE.RESET_PASSWORD)}
+            >
+              Forgot Password
+            </div>
+          )}
+          <button
+            className="bg-lama  text-white p-2 rounded-md disabled:text-pink-200 disabled:cursor-not-allowed "
+            disabled={isLoding}
+          >
+            {isLoding ? "Loding..." : buttonTitle}
+          </button>
+          {error && <div className="text-red-600"></div>}
+          {mode === MODE.LOGIN && (
+            <div className={myClass} onClick={() => setMode(MODE.REGISTER)}>
+              {" "}
+              {"Don't"} have an account
+            </div>
+          )}
+          {mode === MODE.REGISTER && (
+            <div className={myClass} onClick={() => setMode(MODE.LOGIN)}>
+              Already have an account
+            </div>
+          )}
+          {mode === MODE.RESET_PASSWORD && (
+            <div className={myClass} onClick={() => setMode(MODE.LOGIN)}>
+              Go back to login
+            </div>
+          )}
+          {message && (
+            <div
+              className={`text-sm ${
+                message === "Successful You are being redirected." ||
+                message === "The reset link has been sent to your email"
+                  ? "text-green-600"
+                  : " text-red-600"
+              }`}
+            >
+              {cooldown > 0
+                ? `Too many attempts. Please try again after ${cooldown} seconds`
+                : message}
+            </div>
+          )}
+        </form>
+      )}
     </div>
   );
 };

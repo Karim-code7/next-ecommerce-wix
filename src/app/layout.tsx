@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { WixClientContext, WixContextProvider } from "@/context/WixContext";
+import { UIContextProvider } from "@/context/UIContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,12 +21,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <WixContextProvider>
-          {" "}
-          <Navbar />
-          {children}
-          <Footer />
-        </WixContextProvider>
+        <div className="bg-gray-100">
+          <WixContextProvider>
+            <UIContextProvider>
+              <Navbar />
+              {children}
+              <Footer />
+            </UIContextProvider>
+          </WixContextProvider>
+        </div>
       </body>
     </html>
   );

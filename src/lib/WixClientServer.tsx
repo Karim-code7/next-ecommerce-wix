@@ -1,6 +1,8 @@
 import { createClient, OAuthStrategy } from "@wix/sdk";
 import { products, collections } from "@wix/stores";
 import { cookies } from "next/headers";
+import { members } from "@wix/members";
+
 export const wixClientServer = async () => {
   let refreshToken;
   try {
