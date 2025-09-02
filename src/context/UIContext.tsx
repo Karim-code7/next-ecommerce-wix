@@ -108,7 +108,6 @@ export const UIContextProvider = ({
   );
 };
 
-// هوك للاستخدام بسهولة
 export const useUI = () => {
   const context = useContext(UIContext);
   if (!context) {
