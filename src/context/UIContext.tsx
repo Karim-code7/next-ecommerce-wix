@@ -16,7 +16,6 @@ type UIContextType = {
   setIsNotificationOpen: (isOpen: boolean) => void;
   isCartOpen: boolean;
   setIsCartOpen: (isOpen: boolean) => void;
-  closeAll: () => void;
   handleProfileClick: () => void;
   handleCartOpen: () => void;
   profileRef: LegacyRef<HTMLDivElement> | undefined;
@@ -91,18 +90,17 @@ export const UIContextProvider = ({
     <UIContext.Provider
       value={{
         isCartOpen,
-        setIsCartOpen,
         isProfileOpen,
-        setIsProfileOpen,
         isNotificationOpen,
-        setIsNotificationOpen,
-        handleProfileClick,
-        handleCartOpen,
-        closeAll,
         profileRef,
         notificationRef,
         cartRef,
         profileIconRef,
+        setIsCartOpen,
+        setIsProfileOpen,
+        setIsNotificationOpen,
+        handleProfileClick,
+        handleCartOpen,
       }}
     >
       {children}

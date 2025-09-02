@@ -20,13 +20,13 @@ const Navicons = () => {
   const {
     isCartOpen,
     isProfileOpen,
-    handleProfileClick,
-    handleCartOpen,
     profileRef,
     notificationRef,
     cartRef,
     setIsCartOpen,
     setIsProfileOpen,
+    handleProfileClick,
+    handleCartOpen,
   } = useUI();
 
   const handleLogout = async () => {
@@ -96,7 +96,7 @@ const Navicons = () => {
       )}
 
       <Image
-        ref={notificationRef} // هنا notification لو هتعمله نافذة خاصة بيه
+        ref={notificationRef}
         src="/notification.png"
         width={22}
         height={22}
