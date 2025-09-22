@@ -31,14 +31,14 @@ export const useCartStore = create<cartState>((set, get) => ({
     try {
       const cart = await wixClient.currentCart.getCurrentCart();
       set({
-        cart: cart || [],
+        cart: cart || {},
         isLoding: false,
         counter: cart?.lineItems?.length || 0,
       });
     } catch (error: any) {
       if (error?.details?.applicationError?.code === "OWNED_CART_NOT_FOUND") {
         set({
-          cart: [] as currentCart.Cart,
+          cart: {} as currentCart.Cart,
           isLoding: false,
           counter: 0,
         });

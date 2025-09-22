@@ -17,7 +17,7 @@ const Menu = () => {
       />
       {open && (
         <div className="absolute top-20 left-0 w-full text-center bg-neutral-700 shadow-lg rounded-lg p-4 z-40">
-          <ul className="flex flex-col items-center gap-8 text-white text-lg z-10  ">
+          <ul className="flex flex-col items-center gap-8 text-white dark:text-gray-100 text-lg z-10  ">
             <Link href="/" className=" hover:text-green-600 w-fit ">
               Home
             </Link>

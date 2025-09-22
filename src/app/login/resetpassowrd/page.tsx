@@ -22,7 +22,7 @@ export default function ResetPasswordSuccess() {
         </p>
 
         <button
-          className="mt-14 bg-blue-600 w-full p-3 rounded-md text-sm text-white"
+          className="mt-14 bg-blue-600 w-full p-3 rounded-md text-sm text-white dark:text-gray-100"
           onClick={() => router.push("/login")}
         >
           Login in now

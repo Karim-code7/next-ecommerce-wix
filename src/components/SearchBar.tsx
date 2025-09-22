@@ -1,9 +1,22 @@
 "use client";
 
-import Image from "next/image";
+import { useWixClient } from "@/hooks/useWixClient";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { IoIosSearch } from "react-icons/io";
+import { useCartStore } from "@/hooks/useCardStore";
 
 const SerachBar = () => {
+  const wixClient = useWixClient();
+
+  const { getCart } = useCartStore();
+
+  useEffect(() => {
+    if (wixClient) {
+      getCart(wixClient);
+    }
+  }, [wixClient, getCart]);
+
   const router = useRouter();
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -11,7 +24,7 @@ const SerachBar = () => {
 
     let name = formData.get("name") as string;
     if (name) {
-      name = name.replace(/[\u200E\u200F\u202A-\u202E]/g, ""); // يحذف الرموز الخفية
+      name = name.replace(/[\u200E\u200F\u202A-\u202E]/g, "");
 
       router.push("/list?name=" + name);
     }
@@ -19,7 +32,7 @@ const SerachBar = () => {
 
   return (
     <form
-      className="flex items-center justify-between gap-2 bg-gray-100 p-2 rounded-2xl flex-1"
+      className="flex items-center justify-between gap-2  bg-gray-200 dark:bg-gray-300 text-gray-800   p-2 rounded-2xl flex-1"
       onSubmit={handleSearch}
     >
       <input
@@ -29,7 +42,7 @@ const SerachBar = () => {
         placeholder="Search"
       />
       <button className="cursor-pointer">
-        <Image src="/search.png" alt="" width={18} height={18} />
+        <IoIosSearch className="w-6 h-6 text-[#464747]" />
       </button>
     </form>
   );

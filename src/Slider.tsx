@@ -13,7 +13,7 @@ const Slider = () => {
       title: "Summer Sale Collections",
       description: "Sale! Up to 50% off!",
       src: "/fashion1.jpg",
-      url: "/list",
+      url: "/",
       bg: "dark:bg-gradient-to-r dark:from-gray-800 dark:to-dark bg-gradient-to-r from-pink-50 to-yellow-50",
     },
     {
@@ -21,7 +21,7 @@ const Slider = () => {
       title: "Winter Sale Collections",
       description: "Sale! Up to 50% off!",
       src: "/fashion2.jpg",
-      url: "/list",
+      url: "/",
       bg: "dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900 bg-gradient-to-r from-pink-50 to-yellow-50",
     },
     {
@@ -29,19 +29,18 @@ const Slider = () => {
       title: "Spring Sale Collections",
       description: "Sale! Up to 50% off!",
       src: "/fashion3.jpg",
-      url: "/list",
+      url: "/",
       bg: "dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900 bg-gradient-to-r from-pink-50 to-yellow-50",
     },
   ];
 
   const [current, setCurrent] = useState(0);
-  console.log(current);
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, 10000);
+    }, 5000);
     return () => clearInterval(interval);
-  }, [slides]);
+  }, []);
 
   return (
     <div className=" h-[calc(100vh-80px)] overflow-hidden">
@@ -56,10 +55,10 @@ const Slider = () => {
           >
             {/* TEXT CONATINER */}
             <div className="h-1/2 xl:w-1/2  xl:h-full flex justify-center items-center gap-8 flex-col 2xl:gap:12 text-center ">
-              <h2 className={`${gradiant} text-5xl font-poppins`}>
+              <h2 className={`${gradiant} text-3xl font-poppins`}>
                 {slide.description}
               </h2>
-              <h2 className="text-5xl lg:text-6xl 2xl:text-8xl dark:text-gray-100  text-gray-800 font-medium">
+              <h2 className="text-5xl lg:text-6xl 2xl:text-8xl dark:text-gray-100  font-medium">
                 {slide.title}
               </h2>
               <Link href={slide.url}>

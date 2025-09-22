@@ -38,10 +38,13 @@ const Add = ({
   const canIncrease = quantity < saveStock;
   return (
     <div className=" flex flex-col gap-4">
-      <h4 className="font-medium"> Chose a Quantity</h4>
+      <h4 className="font-medium dark:text-gray-200 text-2xl">
+        {" "}
+        Chose a Quantity
+      </h4>
       <div className=" flex  justify-between ">
         <div className="flex items-center gap-4">
-          <div className=" bg-gray-100 py-2 px-4 rounded-3xl flex items-center justify-between w-32">
+          <div className=" bg-gray-100 dark:bg-gray-400 py-2 px-4 rounded-3xl flex items-center justify-between w-32">
             <button
               onClick={() => canDecrease && handleQuantityChange("decrease")}
               className={`text-xl ${
@@ -69,7 +72,7 @@ const Add = ({
           {saveStock < 1 ? (
             <div className="text-xs">Product is out of stock</div>
           ) : (
-            <div className="text-xs">
+            <div className="text-xs dark:text-gray-300">
               Only <span className="text-orange-500"> {saveStock} items</span>{" "}
               left! <br />
               {"Dont't"} miss it
@@ -78,7 +81,7 @@ const Add = ({
         </div>
         <button
           onClick={() => addItem(wixClient, productId!, variantId!, quantity)}
-          className="w-36 text-sm rounded-3xl ring-1 ring-lama text-lama py-2 px-4 hover:bg-lama hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:text-white disabled:ring-none"
+          className=" w-36 disabled:text-gray-900 font-poppins rounded-md bg-lama  text-gray-200 p-2 text-sm  cursor-pointer disabled:cursor-not-allowed disabled:bg-pink-200"
           disabled={isLoding || saveStock < 1}
         >
           {" "}

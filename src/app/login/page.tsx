@@ -2,9 +2,10 @@
 
 import { useWixClient } from "@/hooks/useWixClient";
 import { LoginState } from "@wix/sdk";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+
 enum MODE {
   LOGIN = "LOGIN",
   REGISTER = "REGISTER",
@@ -25,10 +26,9 @@ const LoginPage = () => {
   }, [isLoggedIn]);
 
   const myClass =
-    "text-sm underline cursor-pointer  text-blue-600 font-semibold";
+    "text-sm underline cursor-pointer text-indigo-600 dark:text-indigo-400 font-medium hover:text-indigo-800 dark:hover:text-indigo-300 transition";
 
   const [mode, setMode] = useState(MODE.LOGIN);
-
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,6 +37,7 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [cooldown, setCooldown] = useState(0);
+
   useEffect(() => {
     if (cooldown > 0) {
       const timer = setInterval(() => setCooldown((c) => c - 1), 1000);
@@ -47,6 +48,7 @@ const LoginPage = () => {
   useEffect(() => {
     setMessage("");
   }, [mode]);
+
   const formtTitle =
     mode === MODE.LOGIN
       ? "Log in"
@@ -67,7 +69,7 @@ const LoginPage = () => {
 
   const handelSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (isLoding) return; // يمنع السبام
+    if (isLoding) return;
     setIsLoading(true);
     setError("");
 
@@ -76,13 +78,9 @@ const LoginPage = () => {
 
       switch (mode) {
         case MODE.LOGIN:
-          response = await wixClient.auth.login({
-            email,
-            password,
-          });
+          response = await wixClient.auth.login({ email, password });
           setCooldown(0);
           break;
-
         case MODE.REGISTER:
           response = await wixClient.auth.register({
             email,
@@ -90,13 +88,10 @@ const LoginPage = () => {
             profile: { nickname: username },
           });
           setCooldown(0);
-
           break;
-
         case MODE.RESET_PASSWORD:
           try {
             const redirectUrl = `${window.location.origin}/reset-password`;
-
             response = await wixClient.auth.sendPasswordResetEmail(
               email,
               redirectUrl
@@ -110,13 +105,10 @@ const LoginPage = () => {
             console.error("Error sending reset email:", err);
           }
           break;
-
         case MODE.EAMIL_VERIFICATION:
           response = await wixClient.auth.processVerification({
             verificationCode: email,
           });
-          break;
-        default:
           break;
       }
 
@@ -134,17 +126,7 @@ const LoginPage = () => {
           break;
 
         case LoginState.FAILURE:
-          if (response.errorCode === "invalidEmail") {
-            setMessage("Invalid email address");
-          } else if (response.errorCode === "invalidPassword") {
-            setMessage("Invalid password");
-          } else if (response.errorCode === "emailAlreadyExists") {
-            setMessage("Email already exists");
-          } else if (response.errorCode === "resetPassword") {
-            setMessage("You need to reset your password");
-          } else {
-            setMessage("Somthing went wrong");
-          }
+          setMessage("Something went wrong, please check your credentials.");
           break;
 
         case LoginState.EMAIL_VERIFICATION_REQUIRED:
@@ -153,7 +135,6 @@ const LoginPage = () => {
 
         case LoginState.OWNER_APPROVAL_REQUIRED:
           setMessage("Your account is pending approval");
-        default:
           break;
       }
     } catch (err) {
@@ -165,104 +146,115 @@ const LoginPage = () => {
   };
 
   return (
-    <div className=" bg-white  h-[calc(100vh-80px)] px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64 flex items-center justify-center">
+    <div className="h-[calc(100vh-80px)] px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 flex items-center justify-center ">
       {message === "The reset link has been sent to your email" ? (
-        <div className="text-center">
+        <div className="text-center bg-white dark:bg-slate-900 shadow-xl rounded-xl p-8">
           <h2 className="text-xl font-semibold text-green-600 mb-4">
             ✅ Check your email
           </h2>
-          <p className="text-gray-700">
+          <p className="text-slate-700 dark:text-slate-300">
             We’ve sent a reset link to{" "}
-            <span className="font-bold">{email}</span>. Please check your inbox
-            and follow the instructions.
+            <span className="font-bold">{email}</span>. Please check your inbox.
           </p>
           <button
             onClick={() => setMode(MODE.LOGIN)}
-            className="mt-6 px-4 py-2 bg-blue-600 text-white rounded-lg"
+            className="mt-6 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition"
           >
             Back to Login
           </button>
         </div>
       ) : (
         <form
-          className=" flex flex-col gap-8 w-full max-w-lg shadow-2xl p-8 rounded-md"
+          className="flex flex-col gap-6 w-full max-w-lg bg-white dark:bg-slate-900 shadow-2xl p-8 rounded-xl"
           onSubmit={handelSubmit}
         >
-          <h1 className="text-2xl font-semibold">{formtTitle}</h1>
-          {mode === MODE.REGISTER ? (
+          <h1 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
+            {formtTitle}
+          </h1>
+
+          {mode === MODE.REGISTER && (
             <div className="flex flex-col gap-2">
-              <label className="text-sm">UserName</label>
+              <label className="text-sm text-slate-700 dark:text-slate-300">
+                UserName
+              </label>
               <input
                 type="text"
-                name="username"
                 placeholder="john"
                 autoComplete="username"
-                className="ring-2 ring-gray-300 rounded-md p-4"
+                className="ring-2 ring-slate-300 dark:ring-slate-700 rounded-md p-3 bg-transparent"
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
-          ) : null}
+          )}
+
           {mode !== MODE.EAMIL_VERIFICATION ? (
             <div className="flex flex-col gap-2">
-              <label className="text-sm text-gray-700">E-mail</label>
+              <label className="text-sm text-slate-700 dark:text-slate-300">
+                E-mail
+              </label>
               <input
                 type="email"
-                name="email"
                 placeholder="john@example.com"
                 autoComplete="email"
-                className="ring-2 ring-gray-300 rounded-md p-4"
+                className="ring-2 ring-slate-300 dark:ring-slate-700 rounded-md p-3 bg-transparent"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
           ) : (
             <div className="flex flex-col gap-2">
-              <label className="text-sm text-gray-700">Verification Code</label>
+              <label className="text-sm text-slate-700 dark:text-slate-300">
+                Verification Code
+              </label>
               <input
                 type="text"
-                name="emailCode"
                 placeholder="Code"
-                className="ring-2 ring-gray-300 rounded-md p-4"
+                className="ring-2 ring-slate-300 dark:ring-slate-700 rounded-md p-3 bg-transparent"
                 onChange={(e) => setEmailCode(e.target.value)}
               />
             </div>
           )}
-          {mode === MODE.LOGIN || mode === MODE.REGISTER ? (
+
+          {(mode === MODE.LOGIN || mode === MODE.REGISTER) && (
             <div className="flex flex-col gap-2">
-              <label className="text-sm text-gray-700">Password</label>
+              <label className="text-sm text-slate-700 dark:text-slate-300">
+                Password
+              </label>
               <input
                 type="password"
-                name="password"
                 placeholder="Enter your password"
                 autoComplete="current-password"
-                className="ring-2 ring-gray-300 rounded-md p-4"
+                className="ring-2 ring-slate-300 dark:ring-slate-700 rounded-md p-3 bg-transparent"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-          ) : null}
+          )}
+
           {mode === MODE.LOGIN && (
             <div
               className={myClass}
               onClick={() => setMode(MODE.RESET_PASSWORD)}
             >
-              Forgot Password
+              Forgot Password?
             </div>
           )}
+
           <button
-            className="bg-lama  text-white p-2 rounded-md disabled:text-pink-200 disabled:cursor-not-allowed "
+            className="bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-md transition disabled:bg-indigo-400"
             disabled={isLoding}
           >
-            {isLoding ? "Loding..." : buttonTitle}
+            {isLoding ? "Loading..." : buttonTitle}
           </button>
-          {error && <div className="text-red-600"></div>}
+
+          {error && <div className="text-red-600">{error}</div>}
+
           {mode === MODE.LOGIN && (
             <div className={myClass} onClick={() => setMode(MODE.REGISTER)}>
-              {" "}
-              {"Don't"} have an account
+              Don't have an account?
             </div>
           )}
           {mode === MODE.REGISTER && (
             <div className={myClass} onClick={() => setMode(MODE.LOGIN)}>
-              Already have an account
+              Already have an account?
             </div>
           )}
           {mode === MODE.RESET_PASSWORD && (
@@ -270,13 +262,13 @@ const LoginPage = () => {
               Go back to login
             </div>
           )}
+
           {message && (
             <div
-              className={`text-sm ${
-                message === "Successful You are being redirected." ||
-                message === "The reset link has been sent to your email"
+              className={`text-sm text-center ${
+                message.includes("Successful") || message.includes("reset link")
                   ? "text-green-600"
-                  : " text-red-600"
+                  : "text-red-600"
               }`}
             >
               {cooldown > 0

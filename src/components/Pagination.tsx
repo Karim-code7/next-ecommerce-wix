@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const Pagination = ({
   currentPage,
@@ -14,7 +14,6 @@ const Pagination = ({
   searchParams: any;
 }) => {
   const pathName = usePathname();
-  const searchParamss = useSearchParams();
   const { replace } = useRouter();
   const createPageUrl = (pageNumber: number) => {
     const params = new URLSearchParams(searchParams);
@@ -25,14 +24,14 @@ const Pagination = ({
   return (
     <div className=" mt-12 flex justify-between w-full">
       <button
-        className="rounded-md bg-lama text-white p-2 text-sm w-24 cursor-pointer disabled:cursor-not-allowed disabled:bg-pink-200"
+        className=" disabled:text-gray-900 font-poppins rounded-md bg-lama  text-gray-200 p-2 text-sm w-24 cursor-pointer disabled:cursor-not-allowed disabled:bg-pink-200"
         disabled={!hasprev}
         onClick={() => createPageUrl(currentPage - 1)}
       >
         Previos
       </button>
       <button
-        className="rounded-md bg-lama text-white p-2 text-sm w-24 cursor-pointer disabled:cursor-not-allowed disabled:bg-pink-200"
+        className=" disabled:text-gray-900 rounded-md bg-lama font-poppins text-gray-200 p-2 text-sm w-24 cursor-pointer disabled:cursor-not-allowed disabled:bg-pink-200"
         disabled={!hasnext}
         onClick={() => createPageUrl(currentPage + 1)}
       >

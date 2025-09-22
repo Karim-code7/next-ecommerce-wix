@@ -43,7 +43,7 @@ const ProductList = async ({
       })
     : res.items;
   return (
-    <div className="   mt-12 flex gap-x-8  gap-y-16 justify-between flex-wrap">
+    <div className="     mt-12 flex gap-x-8  gap-y-16 justify-between flex-wrap">
       {res.items.map((product: products.Product) => (
         <Link
           key={product._id}
@@ -67,13 +67,17 @@ const ProductList = async ({
               />
             )}
           </div>
-          <div className="flex justify-between">
-            <span className="font-medium">{product.name}</span>
-            <span className="font-semibold">${product.price?.price}</span>
+          <div className="flex justify-between ">
+            <span className=" dark:text-gray-200   font-roboto">
+              {product.name}
+            </span>
+            <span className="font-normal dark:text-gray-200 font-roboto   ">
+              ${product.price?.price}
+            </span>
           </div>
           {product.additionalInfoSections && (
             <div
-              className="text-sm text-gray-500"
+              className="text-sm text-gray-500 font-roboto"
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(
                   product.additionalInfoSections.find(
@@ -83,7 +87,7 @@ const ProductList = async ({
               }}
             ></div>
           )}
-          <button className=" rounded-2xl ring-1 ring-lama py-2 px-4 text-sm hover:bg-lama hover:text-white  w-max m-auto  transition-all duration-300">
+          <button className=" font-roboto tracking-wide dark:text-gray-200 rounded-2xl ring-1 ring-lama py-2 px-4 text-sm hover:bg-lama   w-max m-auto  transition-all duration-300">
             {" "}
             Add my Cart
           </button>

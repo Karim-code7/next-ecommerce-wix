@@ -52,7 +52,10 @@ const CusomizeProducts = ({
     <div className="   flex flex-col gap-6">
       {productOption.map((option) => (
         <div className=" flex flex-col gap-4" key={option.name}>
-          <h4 className="font-medium"> Chose a {option.name}</h4>
+          <h4 className="font-medium dark:text-gray-200 text-2xl">
+            {" "}
+            Chose a {option.name}
+          </h4>
           <ul className=" flex items-center gap-3">
             {option.choices?.map((choice, i) => {
               const disabled = !isVariantInStock({
@@ -84,7 +87,7 @@ const CusomizeProducts = ({
               ) : (
                 <li
                   key={i}
-                  className="ring-1 ring-lama rounded-md  text-lama py-1 px-4 text-sm "
+                  className={` ring-1 ring-lama rounded-md   text-lama py-1 px-4 text-sm font-poppins   `}
                   style={{
                     cursor: disabled ? "not-allowed" : "pointer",
                     backgroundColor: selcted
@@ -92,7 +95,11 @@ const CusomizeProducts = ({
                       : disabled
                       ? "#FBCFEB"
                       : "white",
-                    color: selcted || disabled ? "white" : "#f35c7a",
+                    color: selcted
+                      ? "#e5e7eb"
+                      : disabled
+                      ? "#111827"
+                      : "#f35c7a",
                     boxShadow: disabled ? "none" : "",
                   }}
                   onClick={clickHandler}
@@ -109,32 +116,6 @@ const CusomizeProducts = ({
         variantId={selctedVarint?._id || "00000000-0000-0000-0000-000000000000"}
         stockNumber={selctedVarint?.stock?.quantity || 0}
       />
-
-      {/* 
-          <ul className=" flex items-center gap-3">
-            <li className="w-8 h-8 rounded-full ring-gray-300 cursor-pointer relative bg-red-500">
-              <div className="absolute w-10 h-10 rounded-full ring-2 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 " />
-            </li>
-            <li className="w-8 h-8 rounded-full ring-gray-300 cursor-pointer relative bg-blue-500"></li>
-            <li className="w-8 h-8 rounded-full ring-gray-300 cursor-not-allowed relative bg-green-500">
-              <div className="absolute w-10 h-[2px] bg-red-400  rotate-45 rounded-full  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 " />
-            </li>
-          </ul> */}
-      {/* OTHERS */}
-      {/* <ul className="flex items-center gap-3">
-        <li className="w-8 h-8 rounded-full ring-1 ring-gray-300 cursor-pointer relative bg-red-500">
-          <div className="absolute w-10 h-10 rounded-full ring-2 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
-        </li>
-        <li className="ring-1 ring-lama rounded-md  text-lama py-1 px-4 text-sm cursor-pointer">
-          Small
-        </li>
-        <li className="ring-1 ring-white text-white bg-lama rounded-md py-1 px-4 text-sm cursor-pointer">
-          Medium
-        </li>
-        <li className="ring-1 ring-pink-200 text-white rounded-md bg-pink-200 py-1 px-4 text-sm cursor-not-allowed">
-          Larg
-        </li>
-      </ul> */}
     </div>
   );
 };

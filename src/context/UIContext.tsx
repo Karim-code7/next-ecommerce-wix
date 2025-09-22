@@ -10,6 +10,7 @@ import {
 } from "react";
 
 type UIContextType = {
+  gradiant: string;
   isProfileOpen: boolean;
   setIsProfileOpen: (isOpen: boolean) => void;
   isNotificationOpen: boolean;
@@ -18,6 +19,7 @@ type UIContextType = {
   setIsCartOpen: (isOpen: boolean) => void;
   handleProfileClick: () => void;
   handleCartOpen: () => void;
+  handleNotificationOpen: () => void;
   profileRef: LegacyRef<HTMLDivElement> | undefined;
   notificationRef: LegacyRef<HTMLDivElement> | undefined;
   cartRef: LegacyRef<HTMLDivElement> | undefined;
@@ -85,6 +87,17 @@ export const UIContextProvider = ({
       setIsCartOpen(true);
     }
   };
+  const handleNotificationOpen = () => {
+    if (isNotificationOpen) {
+      setIsNotificationOpen(false);
+    } else {
+      closeAll();
+      setIsNotificationOpen(true);
+    }
+  };
+
+  const gradiant =
+    " bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent font-poppins font-poppins font-medium";
 
   return (
     <UIContext.Provider
@@ -101,6 +114,8 @@ export const UIContextProvider = ({
         setIsNotificationOpen,
         handleProfileClick,
         handleCartOpen,
+        handleNotificationOpen,
+        gradiant,
       }}
     >
       {children}

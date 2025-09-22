@@ -1,6 +1,7 @@
 "use client";
 
 import { loadStripe } from "@stripe/stripe-js";
+import Link from "next/link";
 import { useState } from "react";
 
 const stripePromise = loadStripe(
@@ -13,9 +14,10 @@ interface CheckoutButtonProps {
     price: number;
     quantity: number;
   }[];
+  show?: boolean;
 }
 
-export default function CheckoutButton({ cart }: CheckoutButtonProps) {
+export default function CheckoutButton({ cart, show }: CheckoutButtonProps) {
   const [loading, setLoading] = useState(false);
 
   async function handleCheckout(cart: any[]) {
@@ -41,18 +43,31 @@ export default function CheckoutButton({ cart }: CheckoutButtonProps) {
   }
 
   return (
-    <div className="p-4 bg-gray-100 rounded">
-      <h3 className="font-bold">Test Card </h3>
-      <p>Visa: 4242 4242 4242 4242</p>
-      <p>Expiry: Any future date </p>
-      <p>CVC: Any 3 digits</p>
-      <button
-        onClick={() => handleCheckout(cart)}
-        disabled={loading}
-        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400"
-      >
-        {loading ? "Processing..." : "Checkout"}
-      </button>
+    <div className="p-4  rounded">
+      <h3 className="dark:text-gray-100   font-poppins font-normal">
+        Test Card{" "}
+      </h3>
+      <div className="text-sm  dark:text-gray-300 font-poppins">
+        <p>Visa: 4242 4242 4242 4242</p>
+        <p>Expiry: Any future date </p>
+        <p>CVC: Any 3 digits</p>
+      </div>
+      <div className="flex flex-col gap-4 mt-4 ">
+        <button
+          onClick={() => handleCheckout(cart)}
+          disabled={loading}
+          className="py-3 px-4  bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400 transition"
+        >
+          {loading ? "Processing..." : "Checkout"}
+        </button>
+        {show && (
+          <Link href={"/viewcard"}>
+            <button className="w-full rounded-md py-3 px-4 bg-lama-green text-white hover:bg-green-700 transition ">
+              View Cart
+            </button>
+          </Link>
+        )}
+      </div>
     </div>
   );
 }

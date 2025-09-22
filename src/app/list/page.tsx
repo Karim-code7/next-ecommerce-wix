@@ -12,14 +12,14 @@ const ListPage = async ({ searchParams }: { searchParams: any }) => {
   );
 
   return (
-    <div className=" bg-white  px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64 relative pb-24 ">
+    <div className=" mt-24  px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64 relative pb-24 ">
       {/* CAMPAIGN */}
       <div className=" hidden bg-pink-50 px-4 sm:flex justify-between h-64">
         <div className="w-2/3 flex flex-col items-center justify-center gap-8">
-          <h1 className="text-4xl font-semibold leading-[48px] text-gray-700">
+          <h1 className=" text-4xl font-medium leading-[48px] text-gray-700 font-poppins">
             Grap up tp 50% off on <br /> selected Products
           </h1>
-          <button className="rounded-3xl bg-lama text-white w-max py-3 px-5 text-sm ">
+          <button className=" font-pop rounded-3xl bg-lama text-white dark:text-gray-100 w-max py-3 px-5 text-sm ">
             Buy Now
           </button>
         </div>
@@ -36,7 +36,7 @@ const ListPage = async ({ searchParams }: { searchParams: any }) => {
       {/* FILTER */}
       <Filter searchParams={searchParams} />
       {/* PRODUCTS */}
-      <h1 className="mt-12 text-xl font-semibold">
+      <h1 className="mt-12 text-2xl bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent font-poppins font-medium ">
         {category.collection?.name} For You
       </h1>
       <Suspense fallback={"loding..."}>
