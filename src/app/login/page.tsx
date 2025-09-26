@@ -4,7 +4,7 @@ import { useWixClient } from "@/hooks/useWixClient";
 import { LoginState } from "@wix/sdk";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-// import Cookies from "js-cookie"; // تم إزالة الاستيراد اليدوي
+import Cookies from "js-cookie";
 
 enum MODE {
   LOGIN = "LOGIN",
@@ -19,10 +19,11 @@ const LoginPage = () => {
 
   const isLoggedIn = wixClient.auth.loggedIn();
 
-  if (isLoggedIn) {
-    router.push("/");
-  }
-
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/");
+    }
+  }, [isLoggedIn, router]);
   const myClass =
     "text-sm underline cursor-pointer text-indigo-600 dark:text-indigo-400 font-medium hover:text-indigo-800 dark:hover:text-indigo-300 transition";
 
@@ -104,9 +105,8 @@ const LoginPage = () => {
           }
           break;
         case MODE.EAMIL_VERIFICATION:
-          // NOTE: Changed from 'email' to 'emailCode' for the verification process
           response = await wixClient.auth.processVerification({
-            verificationCode: emailCode,
+            verificationCode: email,
           });
           break;
       }
@@ -114,19 +114,13 @@ const LoginPage = () => {
       switch (response?.loginState) {
         case LoginState.SUCCESS:
           setMessage("Successful You are being redirected.");
-
-          // 1. Get tokens for direct login if available
-          const sessionToken = response.data?.sessionToken;
-          if (sessionToken) {
-            const tokens = await wixClient.auth.getMemberTokensForDirectLogin(
-              sessionToken
-            );
-            // 2. CORRECT: Use Wix SDK to set tokens (This handles setting the cookie correctly)
-            wixClient.auth.setTokens(tokens);
-          }
-
-          // 3. Removed the manual cookie setting via js-cookie.
-
+          const tokens = await wixClient.auth.getMemberTokensForDirectLogin(
+            response.data.sessionToken
+          );
+          wixClient.auth.setTokens(tokens);
+          Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
+            expires: 2,
+          });
           router.push("/");
           break;
 
@@ -136,9 +130,6 @@ const LoginPage = () => {
 
         case LoginState.EMAIL_VERIFICATION_REQUIRED:
           setMode(MODE.EAMIL_VERIFICATION);
-          setMessage(
-            "Email verification is required. Please check your inbox for a code."
-          );
           break;
 
         case LoginState.OWNER_APPROVAL_REQUIRED:

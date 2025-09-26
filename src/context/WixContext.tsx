@@ -6,7 +6,6 @@ import { ReactNode, createContext } from "react";
 import { currentCart } from "@wix/ecom";
 import { redirects } from "@wix/redirects";
 import { members } from "@wix/members";
-export const dynamic = "force-dynamic";
 
 const refreshToken = JSON.parse(Cookies.get("refreshToken") || "{}");
 const wixClient = createClient({
