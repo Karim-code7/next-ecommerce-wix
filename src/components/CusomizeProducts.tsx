@@ -34,7 +34,8 @@ const CusomizeProducts = ({
       );
     });
     SetselctedVarint(varint);
-  }, [selctedOption]);
+  }, [variants, selctedOption]);
+
   const isVariantInStock = (choices: { [key: string]: string }) => {
     return variants.some((variant) => {
       const variantChoices = variant.choices;

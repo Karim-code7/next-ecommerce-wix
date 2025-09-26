@@ -23,7 +23,7 @@ const LoginPage = () => {
     if (isLoggedIn) {
       router.push("/");
     }
-  }, [isLoggedIn]);
+  }, []);
 
   const myClass =
     "text-sm underline cursor-pointer text-indigo-600 dark:text-indigo-400 font-medium hover:text-indigo-800 dark:hover:text-indigo-300 transition";
@@ -255,7 +255,7 @@ const LoginPage = () => {
 
           {mode === MODE.LOGIN && (
             <div className={myClass} onClick={() => setMode(MODE.REGISTER)}>
-              Don't have an account?
+              <p>Don&apos;t have an account?</p>
             </div>
           )}
           {mode === MODE.REGISTER && (
