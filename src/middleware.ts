@@ -1,5 +1,6 @@
 import { createClient, OAuthStrategy } from "@wix/sdk";
 import { NextRequest, NextResponse } from "next/server";
+export const dynamic = "force-dynamic";
 
 export const middleware = async (request: NextRequest) => {
   const cookies = request.cookies;

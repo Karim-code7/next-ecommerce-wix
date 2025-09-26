@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import { useWixClient } from "@/hooks/useWixClient";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/hooks/useCardStore";
+export const dynamic = "force-dynamic";
 
 const Menu = () => {
   const wixClient = useWixClient();

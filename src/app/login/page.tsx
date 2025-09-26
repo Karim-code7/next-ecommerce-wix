@@ -5,6 +5,7 @@ import { LoginState } from "@wix/sdk";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+export const dynamic = "force-dynamic";
 
 enum MODE {
   LOGIN = "LOGIN",

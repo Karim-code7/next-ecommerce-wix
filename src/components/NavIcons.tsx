@@ -14,6 +14,7 @@ import { LuShoppingCart } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
 import { HiSun, HiMoon } from "react-icons/hi";
 import { useTheme } from "../context/ThemeContext";
+export const dynamic = "force-dynamic";
 
 const Navicons = () => {
   const wixClient = useWixClient();

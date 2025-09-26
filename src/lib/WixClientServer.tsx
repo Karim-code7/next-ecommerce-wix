@@ -3,6 +3,7 @@ import { products, collections } from "@wix/stores";
 import { members } from "@wix/members";
 import { orders } from "@wix/ecom";
 import { cookies } from "next/headers";
+export const dynamic = "force-dynamic";
 
 export const wixClientServer = async () => {
   let refreshToken = null;
