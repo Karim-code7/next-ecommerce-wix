@@ -4,12 +4,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCartStore } from "@/hooks/useCardStore";
 import { media as wixMedia } from "@wix/sdk";
+import { useSearchParams } from "next/navigation";
 
-const OrderPage = ({ params }: { params: { id: string } }) => {
+const OrderPage = () => {
+  const productId = useSearchParams().get("id");
+
   const { cart } = useCartStore();
-
   return (
-    <div className="mt-24 flex flex-col items-center justify-center h-[calc(100vh-180px)] ">
+    <div className="my-24 flex flex-col items-center justify-center h-[calc(100vh-180px)] ">
       <div className="px-10 md:px-40 py-10 md:py-20 bg-white dark:bg-slate-900 shadow-2xl rounded-2xl w-full max-w-2xl">
         {/* Title */}
         <h1 className="text-3xl font-bold mb-6 text-center text-indigo-600 dark:text-indigo-400">
@@ -61,6 +63,9 @@ const OrderPage = ({ params }: { params: { id: string } }) => {
         <div className="mt-4 text-sm text-slate-600 dark:text-slate-400 text-center">
           A confirmation email has been sent to your email address.
         </div>
+        <h2 className="text-center mt-8 text-xl dark:text-gray-200">
+          Order Id :{productId}
+        </h2>
       </div>
 
       {/* Buttons */}

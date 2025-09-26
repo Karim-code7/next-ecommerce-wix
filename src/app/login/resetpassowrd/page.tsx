@@ -1,12 +1,12 @@
 "use client";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function ResetPasswordSuccess() {
   const router = useRouter();
   return (
-    <div className="flex h-[calc(100vh-80px)] items-center justify-center bg-gray-200">
-      <div className=" flex justify-center items-center flex-col bg-white p-12 rounded-2xl shadow-md text-center">
+    <div className="flex h-[calc(100vh-80px)] items-center justify-center">
+      <div className=" flex justify-center items-center flex-col  p-12 rounded-2xl shadow-md text-center">
         <Image
           className=""
           src={"/checked.png"}
@@ -22,7 +22,7 @@ export default function ResetPasswordSuccess() {
         </p>
 
         <button
-          className="mt-14 bg-blue-600 w-full p-3 rounded-md text-sm text-white dark:text-gray-100"
+          className="mt-14 bg-blue-600 w-full p-3 rounded-md text-sm text-white font-medium hover:bg-blue-700 transition-colors duration-300"
           onClick={() => router.push("/login")}
         >
           Login in now

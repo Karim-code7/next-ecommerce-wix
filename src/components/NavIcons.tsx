@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import CartModal from "./CartModal";
 import { useWixClient } from "@/hooks/useWixClient";
 import Cookies from "js-cookie";
@@ -82,7 +81,7 @@ const Navicons = () => {
           {isLoggedIn && (
             <Link
               className="bg-blue-600 w-full text-center rounded-md text-gray-100 py-2 "
-              href="login"
+              href="profile"
             >
               My Profile
             </Link>

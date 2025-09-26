@@ -10,10 +10,8 @@ const SuccessPage = () => {
   const orderId = searchParams.get("orderId");
 
   useEffect(() => {
-    if (!orderId) return;
-
     const timer = setTimeout(() => {
-      router.push("/orders/" + orderId);
+      router.push("/orders/order?id=" + orderId);
     }, 5000);
 
     return () => {
@@ -22,14 +20,15 @@ const SuccessPage = () => {
   }, [orderId, router]);
 
   return (
-    <div className=" bg-white flex flex-col gap-6 items-center justify-center h-[calc(100vh-180px)]">
+    <div className="  flex flex-col gap-6 items-center justify-center h-[calc(100vh-180px)] font-poppins">
       <Confetti width={2000} height={1000} />
-      <h1 className="text-6xl text-green-700">Successful</h1>
-      <h2 className="text-xl font-medium">
+      <h1 className="text-6xl text-green-700 ">Successful</h1>
+      <h2 className="text-xl font-medium text-green-700 ">
         We sent the invoice to your e-mail
       </h2>
-      <h3 className="">You are being redirected to the order page...</h3>
-      <p>Product ID: {orderId}</p>
+      <h3 className="dark:text-gray-300 text-gray-600">
+        You are being redirected to the order page...
+      </h3>
     </div>
   );
 };

@@ -19,6 +19,7 @@ interface CheckoutButtonProps {
 
 export default function CheckoutButton({ cart, show }: CheckoutButtonProps) {
   const [loading, setLoading] = useState(false);
+  console.log(cart);
 
   async function handleCheckout(cart: any[]) {
     try {

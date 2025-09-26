@@ -15,15 +15,18 @@
     "@wix/redirects": "^1.0.94",
     "@wix/sdk": "^1.15.24",
     "@wix/stores": "^1.0.485",
+    "framer-motion": "^12.23.18",
     "i": "^0.3.7",
     "isomorphic-dompurify": "^2.26.0",
     "js-cookie": "^3.0.5",
+    "lucide-react": "^0.544.0",
     "next": "14.2.2",
     "react": "^18",
     "react-confetti": "^6.4.0",
     "react-dom": "^18",
     "react-icons": "^5.5.0",
     "stripe": "^18.5.0",
+    "timeago.js": "^4.0.2",
     "zustand": "^5.0.7"
   },
   "devDependencies": {

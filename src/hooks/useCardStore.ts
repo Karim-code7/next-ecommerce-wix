@@ -1,29 +1,33 @@
 import { create } from "zustand";
-import { currentCart } from "@wix/ecom";
-import { createClient } from "@wix/sdk";
+import { cart, currentCart } from "@wix/ecom";
 
 import { WixClient } from "@/context/WixContext";
+
+type ExtendedCart = currentCart.Cart & {
+  subtotal?: {
+    amount: string;
+    convertedAmount?: string;
+    formattedAmount?: string;
+  };
+};
+
 type cartState = {
-  cart: currentCart.Cart;
-
+  cart: ExtendedCart;
   isLoding: boolean;
-
   counter: number;
 
   getCart: (wixClient: WixClient) => void;
 
   addItem: (
     wixClient: WixClient,
-
     productId: string,
-
     variantId: string,
-
     quantity: number
   ) => void;
-  removeItem: (wixClient: WixClient, itmeId: string) => void;
+  removeItem: (wixClient: WixClient, itemId: string) => void;
 };
-export const useCartStore = create<cartState>((set, get) => ({
+
+export const useCartStore = create<cartState>((set) => ({
   cart: [],
   isLoding: true,
   counter: 0,

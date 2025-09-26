@@ -2,8 +2,27 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import Cookies from "js-cookie";
+import { useWixClient } from "@/hooks/useWixClient";
+import { useRouter } from "next/navigation";
+import { useCartStore } from "@/hooks/useCardStore";
 
 const Menu = () => {
+  const wixClient = useWixClient();
+  const { counter } = useCartStore();
+  const router = useRouter();
+  const isLoggedIn = wixClient.auth.loggedIn();
+
+  const handleLogout = async () => {
+    if (isLoggedIn) {
+      Cookies.remove("refreshToken");
+      const { logoutUrl } = await wixClient.auth.logout(window.location.href);
+      router.push(logoutUrl);
+    } else {
+      router.push("/login");
+    }
+  };
+
   const [open, setOpen] = useState(false);
   return (
     <div>
@@ -22,25 +41,28 @@ const Menu = () => {
               Home
             </Link>
 
-            <Link href="/shop" className=" hover:text-green-600  w-fit">
+            <Link href="/list" className=" hover:text-green-600  w-fit">
               Shop
             </Link>
 
-            <Link href="/deals" className="0 hover:text-green-600  w-fit">
+            <Link href="/" className="0 hover:text-green-600  w-fit">
               Deals
             </Link>
 
-            <Link href="/about" className=" hover:text-green-600  w-fit">
+            <Link href="/" className=" hover:text-green-600  w-fit">
               About
             </Link>
-            <Link href="/contact" className=" hover:text-green-600  w-fit">
+            <Link href="/" className=" hover:text-green-600  w-fit">
               Contact
             </Link>
-            <Link href="/logout" className=" hover:text-green-600  w-fit">
-              Logout
-            </Link>
-            <Link href="/cart" className=" hover:text-green-600  w-fit">
-              Cart(1)
+            <div
+              onClick={() => handleLogout()}
+              className=" hover:text-green-600  w-fit cursor-pointer"
+            >
+              {isLoggedIn ? "Logout" : "Login"}
+            </div>
+            <Link href="/viewcard" className=" hover:text-green-600  w-fit">
+              Cart ({counter})
             </Link>
           </ul>
         </div>

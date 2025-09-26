@@ -1,6 +1,7 @@
 "use client";
 import { create } from "zustand";
 import { WixClient } from "@/context/WixContext";
+import { members } from "@wix/members";
 
 type ProfileState = {
   member: any;
@@ -9,7 +10,7 @@ type ProfileState = {
   fetchMember: (wixClient: WixClient) => Promise<void>;
 };
 
-export const useProfileStore = create<ProfileState>((set) => ({
+export const useProfileStore = create<ProfileState>((set, get) => ({
   member: null,
   email: null,
   isLoading: false,
@@ -23,10 +24,13 @@ export const useProfileStore = create<ProfileState>((set) => ({
         return;
       }
 
-      const res = await wixClient.members.getCurrentMember();
+      const res = await wixClient.members.getCurrentMember({
+        fieldsets: [members.Set.FULL],
+      });
+      console.log("Fetched member:", res);
       set({
         member: res.member,
-        email: res.member?.profile?.slug?.slice(0, -5) || null,
+        email: res.member?.loginEmail,
         isLoading: false,
       });
     } catch (err) {

@@ -35,13 +35,12 @@ const Slider = () => {
   ];
 
   const [current, setCurrent] = useState(0);
-  console.log(current);
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
     }, 10000);
     return () => clearInterval(interval);
-  }, [slides]);
+  }, [slides.length]);
 
   return (
     <div className=" h-[calc(100vh-80px)] overflow-hidden">

@@ -42,7 +42,7 @@ const Profile = () => {
     <div className="flex flex-col items-center gap-3 ">
       <ProfileAvatar
         name={member?.profile?.nickname}
-        email={member?.contact?.email}
+        email={member?.loginEmaill}
         picture={member?.profile?.photo?.url}
       />
 

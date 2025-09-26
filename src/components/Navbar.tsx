@@ -7,7 +7,13 @@ import dynamic from "next/dynamic";
 const Navbar = () => {
   const Navicons = dynamic(() => import("./NavIcons"), { ssr: false });
 
-  const menuItems = ["Home", "Shop", "Deals", "About", "Contact"];
+  const menuItems = [
+    { name: "Home", href: "/" },
+    { name: "Shop", href: "/list" },
+    { name: "About", href: "/" },
+    { name: "Contact", href: "/" },
+  ];
+
   return (
     <div className=" bg-white dark:text-gray-100 dark:bg-gray-800 transition-background duration-300   h-20 px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64 fixed top-0 left-0 right-0 z-50 shadow-md ">
       {/*  MOBILE */}
@@ -30,21 +36,22 @@ const Navbar = () => {
               LAMA
             </div>
           </Link>
-          <div className="     hidden xl:flex gap-4">
+          <div className="     hidden xl:flex gap-4 transition-all duration-300 ">
             {menuItems.map((item, index) => (
-              <div
+              <Link
                 className=" text-gray-700 
-  dark:text-gray-300 
-  cursor-pointer 
-  hover:text-lama-green 
-  dark:hover:text-lama-green 
-  font-medium 
-  transition-colors 
-  duration-300"
+              dark:text-gray-300 
+                cursor-pointer 
+              hover:text-lama-green 
+              dark:hover:text-lama-green 
+                font-medium 
+                transition-colors 
+                duration-300"
                 key={index}
+                href={item.href}
               >
-                {item}
-              </div>
+                {item.name}
+              </Link>
             ))}
           </div>
         </div>

@@ -177,13 +177,15 @@ const LoginPage = () => {
               <label className="text-sm text-slate-700 dark:text-slate-300">
                 UserName
               </label>
-              <input
-                type="text"
-                placeholder="john"
-                autoComplete="username"
-                className="ring-2 ring-slate-300 dark:ring-slate-700 rounded-md p-3 bg-transparent"
-                onChange={(e) => setUsername(e.target.value)}
-              />
+              <div className=" ring-2 dark:text-gray-100 text-gray-700 ring-slate-300 dark:ring-slate-700 rounded-md p-3 focus-within:ring-blue-700 dark:focus-within:ring-blue-700 transition">
+                <input
+                  type="text"
+                  placeholder="john"
+                  autoComplete="name"
+                  className="w-full bg-transparent outline-none"
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
             </div>
           )}
 
@@ -192,13 +194,15 @@ const LoginPage = () => {
               <label className="text-sm text-slate-700 dark:text-slate-300">
                 E-mail
               </label>
-              <input
-                type="email"
-                placeholder="john@example.com"
-                autoComplete="email"
-                className="ring-2 ring-slate-300 dark:ring-slate-700 rounded-md p-3 bg-transparent"
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <div className=" ring-2 dark:text-gray-100 text-gray-700 ring-slate-300 dark:ring-slate-700 rounded-md p-3 focus-within:ring-blue-700 dark:focus-within:ring-blue-700 transition">
+                <input
+                  type="email"
+                  placeholder="john@exmple.com"
+                  autoComplete="email"
+                  className="w-full bg-transparent outline-none"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
             </div>
           ) : (
             <div className="flex flex-col gap-2">
@@ -208,7 +212,7 @@ const LoginPage = () => {
               <input
                 type="text"
                 placeholder="Code"
-                className="ring-2 ring-slate-300 dark:ring-slate-700 rounded-md p-3 bg-transparent"
+                className="ring-2 dark:text-gray-100 text-gray-700 ring-slate-300 dark:ring-slate-700 rounded-md p-3 bg-transparent "
                 onChange={(e) => setEmailCode(e.target.value)}
               />
             </div>
@@ -219,13 +223,15 @@ const LoginPage = () => {
               <label className="text-sm text-slate-700 dark:text-slate-300">
                 Password
               </label>
-              <input
-                type="password"
-                placeholder="Enter your password"
-                autoComplete="current-password"
-                className="ring-2 ring-slate-300 dark:ring-slate-700 rounded-md p-3 bg-transparent"
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="flex items-center justify-between ring-2 dark:text-gray-100 text-gray-700 ring-slate-300 dark:ring-slate-700 rounded-md p-3 focus-within:ring-blue-700 dark:focus-within:ring-blue-700 transition">
+                <input
+                  type="password"
+                  placeholder="Enter your password"
+                  autoComplete="current-password"
+                  className="w-full bg-transparent outline-none"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
             </div>
           )}
 

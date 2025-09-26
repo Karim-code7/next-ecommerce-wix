@@ -8,7 +8,7 @@ import CheckoutButton from "./CheckoutButton";
 import { useUI } from "@/context/UIContext";
 
 const CartModal = () => {
-  const { cart, isLoding, removeItem } = useCartStore();
+  const { cart, isLoding, removeItem, counter } = useCartStore();
   const { gradiant } = useUI();
 
   const wixClient = useWixClient();
@@ -18,15 +18,20 @@ const CartModal = () => {
       price: item.price.amount,
       quantity: item.quantity,
       _id: item._id,
+      buyerId: cart.buyerInfo?.contactId || "",
     })) || [];
-
   return (
     <div className="absolute  top-12 right-0 p-4 rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white dark:bg-slate-800 flex flex-col gap-6 z-20">
       {!cart.lineItems?.length ? (
         <div className="w-36">Your cart is empty</div>
       ) : (
         <>
-          <h2 className={` text-2xl ${gradiant}`}>Shopping Cart</h2>
+          <div className="flex justify-between items-center gap-1">
+            <h2 className={` text-2xl ${gradiant}`}>Shopping Cart</h2>
+            <p className="bg-gray-200 rounded-xl p-1 text-sm text-gray-600  font-roboto font-normal">
+              {counter} items
+            </p>
+          </div>
 
           {/* LIST */}
           <div className="flex flex-col gap-8">
@@ -94,7 +99,7 @@ const CartModal = () => {
                 Subtotal
               </span>
               <span className="dark:text-gray-100   font-roboto font-normal">
-                ${cart.subtotal.amount}
+                ${cart.subtotal?.amount}
               </span>
             </div>
             <p className=" text-gray-500 text-sm mt-2 mb-4 w-max ">
