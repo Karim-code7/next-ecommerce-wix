@@ -6,7 +6,8 @@ import { redirect } from "next/navigation";
 
 const ProfilePage = async () => {
   const wixClient = await wixClientServer();
-  const isLoggedIn = wixClient.auth.loggedIn();
+
+  const isLoggedIn = await wixClient.auth.loggedIn();
 
   if (!isLoggedIn) {
     redirect("/login");
@@ -21,9 +22,9 @@ const ProfilePage = async () => {
   }
 
   return (
-    <div className=" mt-24 flex flex-col md:flex-row gap-24 md:h-[calc(100vh-180px)] items-start px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+    <div className="mt-24 flex flex-col md:flex-row gap-24 md:h-[calc(100vh-180px)] items-start px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
       {/* Left: Profile Form */}
-      <div className="w-full md:w-1/2 ">
+      <div className="w-full md:w-1/2">
         <h1 className="text-2xl font-semibold dark:text-gray-100">Profile</h1>
         <form action={updateUser} className="mt-12 flex flex-col gap-4">
           <input type="text" hidden name="id" value={user.member.contactId} />
@@ -79,12 +80,12 @@ const ProfilePage = async () => {
         </form>
       </div>
 
-      {/* Right: Profile Info (Instead of Orders) */}
-      <div className="w-full md:w-1/2 ">
+      {/* Right: Profile Info */}
+      <div className="w-full md:w-1/2">
         <h1 className="text-2xl font-semibold dark:text-gray-100">
           Account Info
         </h1>
-        <div className="mt-20 grid gap-4 ">
+        <div className="mt-20 grid gap-4">
           <div className="p-4 bg-slate-100 rounded-md shadow-sm">
             <h2 className="text-sm text-gray-500">Member ID</h2>
             <p className="text-lg">{user.member.contactId}</p>
@@ -102,7 +103,7 @@ const ProfilePage = async () => {
             </p>
           </div>
           <div className="p-4 bg-slate-100 rounded-md shadow-sm">
-            <h2 className="text-sm text-gray-500">Last Ubdate</h2>
+            <h2 className="text-sm text-gray-500">Last Update</h2>
             <p className="text-lg">
               {user.member._updatedDate
                 ? new Date(user.member._updatedDate).toLocaleDateString()
