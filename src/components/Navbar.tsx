@@ -8,7 +8,6 @@ const Navbar = () => {
   const Navicons = dynamic(() => import("./NavIcons"), { ssr: false });
 
   const menuItems = [
-    { name: "Home", href: "/" },
     { name: "Shop", href: "/list" },
     { name: "About", href: "/" },
     { name: "Contact", href: "/" },
