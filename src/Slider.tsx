@@ -40,7 +40,7 @@ const Slider = () => {
       setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
     }, 5000);
     return () => clearInterval(interval);
-  }, [slides.length]);
+  }, [slides.length, current]);
 
   return (
     <div className=" h-[calc(100vh-80px)] overflow-hidden">
