@@ -3,6 +3,7 @@ import { updateUser } from "@/lib/action";
 import { wixClientServer } from "@/lib/WixClientServer";
 import { members } from "@wix/members";
 import { redirect } from "next/navigation";
+export const dynamic = "force-dynamic";
 
 const ProfilePage = async () => {
   const wixClient = await wixClientServer();
