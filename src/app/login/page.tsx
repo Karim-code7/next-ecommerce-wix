@@ -19,11 +19,9 @@ const LoginPage = () => {
 
   const isLoggedIn = wixClient.auth.loggedIn();
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      router.push("/");
-    }
-  }, []);
+  if (isLoggedIn) {
+    router.push("/");
+  }
 
   const myClass =
     "text-sm underline cursor-pointer text-indigo-600 dark:text-indigo-400 font-medium hover:text-indigo-800 dark:hover:text-indigo-300 transition";
