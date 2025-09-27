@@ -120,6 +120,9 @@ const LoginPage = () => {
           wixClient.auth.setTokens(tokens);
           Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
             expires: 2,
+            secure: true,
+            sameSite: "Lax",
+            path: "/",
           });
           router.push("/");
           break;
