@@ -37,7 +37,7 @@ const Profile = () => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
+  console.log(member);
   return (
     <div className="flex flex-col items-center gap-3 ">
       <ProfileAvatar

@@ -27,7 +27,6 @@ export const useProfileStore = create<ProfileState>((set, get) => ({
       const res = await wixClient.members.getCurrentMember({
         fieldsets: [members.Set.FULL],
       });
-      console.log("Fetched member:", res);
       set({
         member: res.member,
         email: res.member?.loginEmail,
