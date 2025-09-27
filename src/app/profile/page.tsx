@@ -7,9 +7,7 @@ import { redirect } from "next/navigation";
 export const dynamic = "force-dynamic";
 
 const ProfilePage = async () => {
-  const wixClient = useWixClient();
-
-  const isLoggedIn = wixClient.auth.loggedIn();
+  const { wixClient, isLoggedIn } = useWixClient();
 
   if (!isLoggedIn) {
     redirect("/login");

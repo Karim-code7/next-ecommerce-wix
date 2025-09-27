@@ -17,8 +17,7 @@ import { useTheme } from "../context/ThemeContext";
 export const dynamic = "force-dynamic";
 
 const Navicons = () => {
-  const wixClient = useWixClient();
-  const isLoggedIn = wixClient.auth.loggedIn();
+  const { wixClient, isLoggedIn } = useWixClient();
   const router = useRouter();
   const { isDark, toggleTheme } = useTheme();
 

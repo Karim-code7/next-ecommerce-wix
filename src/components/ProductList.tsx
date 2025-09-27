@@ -37,7 +37,6 @@ const ProductList = async ({
         const [sortType, sortBy] = searchParams.sort.split(" ");
         const aPrice = a.priceData?.price || 0;
         const bPrice = b.priceData?.price || 0;
-
         if (sortType === "asc") return aPrice - bPrice;
         if (sortType === "desc") return bPrice - aPrice;
         return 0;

@@ -7,18 +7,17 @@ type ProfileState = {
   member: any;
   email: string | null;
   isLoading: boolean;
-  fetchMember: (wixClient: WixClient) => Promise<void>;
+  fetchMember: (wixClient: WixClient, isLoggedIn: boolean) => Promise<void>;
 };
 
-export const useProfileStore = create<ProfileState>((set, get) => ({
+export const useProfileStore = create<ProfileState>((set) => ({
   member: null,
   email: null,
   isLoading: false,
 
-  fetchMember: async (wixClient) => {
+  fetchMember: async (wixClient, isLoggedIn) => {
     set({ isLoading: true });
     try {
-      const isLoggedIn = wixClient.auth.loggedIn();
       if (!isLoggedIn) {
         set({ member: null, email: null, isLoading: false });
         return;

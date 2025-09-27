@@ -14,10 +14,8 @@ enum MODE {
 }
 
 const LoginPage = () => {
-  const wixClient = useWixClient();
+  const { wixClient, isLoggedIn } = useWixClient();
   const router = useRouter();
-
-  const isLoggedIn = wixClient.auth.loggedIn();
 
   useEffect(() => {
     if (isLoggedIn) {

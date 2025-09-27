@@ -10,7 +10,6 @@ const SuccessContent = () => {
   const router = useRouter();
 
   const orderId = searchParams.get("orderId");
-
   useEffect(() => {
     const timer = setTimeout(() => {
       if (orderId) {
@@ -43,4 +42,4 @@ const SuccessPage = () => {
   );
 };
 
-export default SuccessPage;
+export default SuccessContent;

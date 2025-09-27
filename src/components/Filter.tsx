@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const Filter = ({ searchParams }: { searchParams: any }) => {
   const pathName = usePathname();
@@ -60,20 +60,6 @@ const Filter = ({ searchParams }: { searchParams: any }) => {
         >
           <option>All Filters</option>
         </select>
-        {/* <select
-          name="size"
-          className="py-2 px-4 rounded-2xl text-xs font-medium bg-[#EBEDED]"
-        >
-          <option>Size</option>
-          <option value="">Size</option>
-        </select>
-        <select
-          name="color"
-          id=""
-          className="py-2 px-4 rounded-2xl text-xs font-medium bg-[#EBEDED]"
-        >
-          <option>Color</option>
-        </select> */}
       </div>
       <div className="">
         <select

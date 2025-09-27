@@ -26,7 +26,9 @@ const wixClient = createClient({
 });
 
 export type WixClient = typeof wixClient;
+
 export const WixClientContext = createContext<WixClient>(wixClient);
+
 export const WixContextProvider = ({ children }: { children: ReactNode }) => {
   return (
     <WixClientContext.Provider value={wixClient}>

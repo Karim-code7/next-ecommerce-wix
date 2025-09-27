@@ -11,7 +11,7 @@ const CartModal = () => {
   const { cart, isLoding, removeItem, counter } = useCartStore();
   const { gradiant } = useUI();
 
-  const wixClient = useWixClient();
+  const { wixClient } = useWixClient();
   const cartItems =
     cart.lineItems?.map((item: any) => ({
       name: item.productName,

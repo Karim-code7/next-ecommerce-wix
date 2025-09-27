@@ -25,19 +25,18 @@ function ProfileAvatar({ name, email, picture }: any) {
 }
 
 const Profile = () => {
-  const wixClient = useWixClient();
+  const { wixClient, isLoggedIn } = useWixClient();
   const { member, email, fetchMember, isLoading } = useProfileStore();
 
   useEffect(() => {
     if (!member) {
-      fetchMember(wixClient);
+      fetchMember(wixClient, isLoggedIn);
     }
   }, [member, fetchMember, wixClient]);
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  console.log(member);
   return (
     <div className="flex flex-col items-center gap-3 ">
       <ProfileAvatar

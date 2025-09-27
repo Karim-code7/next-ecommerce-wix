@@ -1,5 +1,6 @@
 "use client";
 
+import { useWixClient } from "@/hooks/useWixClient";
 import { loadStripe } from "@stripe/stripe-js";
 import Link from "next/link";
 import { useState } from "react";
@@ -19,7 +20,7 @@ interface CheckoutButtonProps {
 
 export default function CheckoutButton({ cart, show }: CheckoutButtonProps) {
   const [loading, setLoading] = useState(false);
-  console.log(cart);
+  const { isLoggedIn } = useWixClient();
 
   async function handleCheckout(cart: any[]) {
     try {

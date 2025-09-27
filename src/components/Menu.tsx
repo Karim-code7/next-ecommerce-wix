@@ -9,10 +9,9 @@ import { useCartStore } from "@/hooks/useCardStore";
 export const dynamic = "force-dynamic";
 
 const Menu = () => {
-  const wixClient = useWixClient();
+  const { wixClient, isLoggedIn } = useWixClient();
   const { counter } = useCartStore();
   const router = useRouter();
-  const isLoggedIn = wixClient.auth.loggedIn();
 
   const handleLogout = async () => {
     if (isLoggedIn) {

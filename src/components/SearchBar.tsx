@@ -7,7 +7,7 @@ import { IoIosSearch } from "react-icons/io";
 import { useCartStore } from "@/hooks/useCardStore";
 
 const SerachBar = () => {
-  const wixClient = useWixClient();
+  const { wixClient } = useWixClient();
 
   const { getCart } = useCartStore();
 
@@ -41,7 +41,7 @@ const SerachBar = () => {
         type="text"
         placeholder="Search"
       />
-      <button className="cursor-pointer">
+      <button onClick={() => handleSearch} className="cursor-pointer">
         <IoIosSearch className="w-6 h-6 text-[#464747]" />
       </button>
     </form>
