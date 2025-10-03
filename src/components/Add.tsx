@@ -22,7 +22,7 @@ const Add = ({
       setQuantity(1);
     }
   }, [saveStock]);
-  const wixClient = useWixClient();
+  const { wixClient } = useWixClient();
   const { addItem, isLoding } = useCartStore();
   const handleQuantityChange = (operation: "increase" | "decrease") => {
     setQuantity((prevQuantity) => {
@@ -81,7 +81,7 @@ const Add = ({
         </div>
         <button
           onClick={() => addItem(wixClient, productId!, variantId!, quantity)}
-          className=" w-36 disabled:text-gray-900 font-poppins rounded-md bg-TrendoGo  text-gray-200 p-2 text-sm  cursor-pointer disabled:cursor-not-allowed disabled:bg-pink-200"
+          className=" w-36 disabled:text-gray-900 font-poppins rounded-md bg-secound  text-gray-200 p-2 text-sm  cursor-pointer disabled:cursor-not-allowed disabled:bg-red-200"
           disabled={isLoding || saveStock < 1}
         >
           {" "}

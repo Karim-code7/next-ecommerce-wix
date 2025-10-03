@@ -11,7 +11,7 @@ const container = "px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64";
 const headingBase = "font-poppins font-medium text-xl lg:text-3xl 2xl:text-5xl";
 
 const gradiant =
-  " bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent";
+  " bg-gradient-to-r from-green-600 to-blue-200 bg-clip-text text-transparent";
 
 const HomePage = async () => {
   return (

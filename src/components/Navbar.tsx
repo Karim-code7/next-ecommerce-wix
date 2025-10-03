@@ -19,7 +19,7 @@ const Navbar = () => {
       {/*  MOBILE */}
       <div className="flex items-center justify-between h-full md:hidden">
         <Link rel="stylesheet" href="/">
-          <div className="text-TrendoGo-green font-medium text-2xl tracking-wider hover:text-green-800 transition-all duration-300  font-poppins ">
+          <div className="text-trendo-green font-medium text-2xl tracking-wider hover:text-green-800 transition-all duration-300  font-poppins ">
             TrendoGo
           </div>
         </Link>
@@ -42,8 +42,8 @@ const Navbar = () => {
                 className=" text-gray-700 
               dark:text-gray-300 
                 cursor-pointer 
-              hover:text-TrendoGo-green 
-              dark:hover:text-TrendoGo-green 
+              hover:text-secound 
+              dark:hover:text-secound
                 font-medium 
                 transition-colors 
                 duration-300"

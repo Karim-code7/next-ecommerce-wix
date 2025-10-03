@@ -8,7 +8,7 @@ import CheckoutButton from "./CheckoutButton";
 import { useWixClient } from "@/hooks/useWixClient";
 
 const ViewCard = () => {
-  const wixClient = useWixClient();
+  const { wixClient } = useWixClient();
   const { isLoding, removeItem } = useCartStore();
 
   const { cart, counter } = useCartStore();
@@ -62,7 +62,7 @@ const ViewCard = () => {
               </div>
               {/* PRICE */}
               <div className=" flex flex-col items-end">
-                <p className="font-bold text-xl text-TrendoGo-green">
+                <p className="font-bold text-xl text-secound">
                   ${(item.price.amount * item.quantity).toFixed(2)}
                 </p>
                 <p
@@ -80,9 +80,7 @@ const ViewCard = () => {
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg mt-6 flex flex-col items-center gap-4">
             <div className="text-2xl font-bold dark:text-gray-100">
               Total:{" "}
-              <span className="text-TrendoGo-green">
-                ${cart.subtotal?.amount}
-              </span>
+              <span className="text-secound">${cart.subtotal?.amount}</span>
             </div>
             <div className="">
               <CheckoutButton cart={cartItems} show={false} />

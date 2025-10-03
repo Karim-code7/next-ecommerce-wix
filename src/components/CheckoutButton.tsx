@@ -64,7 +64,7 @@ export default function CheckoutButton({ cart, show }: CheckoutButtonProps) {
         </button>
         {show && (
           <Link href={"/viewcard"}>
-            <button className="w-full rounded-md py-3 px-4 bg-TrendoGo-green text-white hover:bg-green-700 transition ">
+            <button className="w-full rounded-md py-3 px-4 bg-secound text-white hover:bg-green-700 transition ">
               View Cart
             </button>
           </Link>

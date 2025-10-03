@@ -23,7 +23,7 @@ const config: Config = {
       colors: {
         primary: "#1977f2",
 
-        TrendoGo: "#F35C7A",
+        trendogo: "#F35C7A",
 
         "TrendoGo-green": "#16A34A",
 

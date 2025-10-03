@@ -40,7 +40,7 @@ const Footer = () => {
         {/* LEFT */}
         <div className="w-full md:1/2 lg:w-1/4 flex flex-col gap-8">
           <Link href="/">
-            <div className="text-TrendoGo-green font-medium text-2xl tracking-wider hover:text-green-800 transition-all duration-300">
+            <div className="text-secound font-medium text-2xl tracking-wider hover:text-green-800 transition-all duration-300">
               TrendoGo
             </div>
           </Link>
@@ -48,8 +48,8 @@ const Footer = () => {
             3252 Winding Way, Central Plaza, Willowbrook, CA 90210, United
             States
           </p>
-          <span className="font-semibold">hello@gmail.dev</span>
-          <span className="font-semibold">+1 234 567 890</span>
+          <span className="font-semibold">karemkarem201465@gmail.com</span>
+          <span className="font-semibold">+201270665904</span>
           <div className="flex gap-6 text-gray-700 text-xl">
             <FaFacebookF className="text-facebook cursor-pointer" />
             <FaInstagram className="text-instagram cursor-pointer" />
@@ -68,7 +68,7 @@ const Footer = () => {
               {about.map((item, index) => (
                 <Link
                   key={index}
-                  className="hover:text-TrendoGo-green dark:hover:text-TrendoGo-green font-medium transition-all duration-300"
+                  className="hover:text-secound dark:hover:text-secound font-medium transition-all duration-300"
                   href={item.url}
                 >
                   {item.title}
@@ -84,7 +84,7 @@ const Footer = () => {
               {shop.map((item, index) => (
                 <Link
                   key={index}
-                  className="hover:text-TrendoGo-green dark:hover:text-TrendoGo-green font-medium transition-all duration-300"
+                  className="hover:text-secound dark:hover:text-secound font-medium transition-all duration-300"
                   href={item.url}
                 >
                   {item.title}
@@ -100,7 +100,7 @@ const Footer = () => {
               {help.map((item, index) => (
                 <Link
                   key={index}
-                  className="hover:text-TrendoGo-green dark:hover:text-TrendoGo-green font-medium transition-all duration-300"
+                  className="hover:text-secound dark:hover:text-secound font-medium transition-all duration-300"
                   href={item.url}
                 >
                   {item.title}

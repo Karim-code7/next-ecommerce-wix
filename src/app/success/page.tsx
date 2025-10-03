@@ -3,8 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import Confetti from "react-confetti";
-import { Suspense } from "react";
-
+export const dynamic = "force-dynamic";
 const SuccessContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -31,14 +30,6 @@ const SuccessContent = () => {
         You are being redirected to the order page...
       </h3>
     </div>
-  );
-};
-
-const SuccessPage = () => {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <SuccessContent />
-    </Suspense>
   );
 };
 

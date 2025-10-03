@@ -1,24 +1,23 @@
-"use client";
 import UpdateButton from "@/components/UbdateButton";
-import { useWixClient } from "@/hooks/useWixClient";
-import { updateUser } from "@/lib/action";
 import { members } from "@wix/members";
+import { updateUser } from "@/lib/action";
+import { wixClientServer } from "@/lib/WixClientServer";
 import { redirect } from "next/navigation";
 export const dynamic = "force-dynamic";
 
-const ProfilePage = async () => {
-  const { wixClient, isLoggedIn } = useWixClient();
-
-  if (!isLoggedIn) {
+export default async function ProfilePage() {
+  const wixClient = await wixClientServer();
+  let user;
+  try {
+    user = await wixClient.members.getCurrentMember({
+      fieldsets: [members.Set.FULL],
+    });
+  } catch (error) {
+    console.log("Error fetching user:", error);
     redirect("/login");
   }
-
-  const user = await wixClient.members.getCurrentMember({
-    fieldsets: [members.Set.FULL],
-  });
-
   if (!user.member?.contactId) {
-    return <div className="">Not logged in!</div>;
+    return <div>Not logged in!</div>;
   }
 
   return (
@@ -27,7 +26,12 @@ const ProfilePage = async () => {
       <div className="w-full md:w-1/2">
         <h1 className="text-2xl font-semibold dark:text-gray-100">Profile</h1>
         <form action={updateUser} className="mt-12 flex flex-col gap-4">
-          <input type="text" hidden name="id" value={user.member.contactId} />
+          <input
+            type="text"
+            hidden
+            name="id"
+            defaultValue={user.member.contactId}
+          />
           <label className="text-sm text-gray-700 dark:text-gray-100">
             Username
           </label>
@@ -114,6 +118,4 @@ const ProfilePage = async () => {
       </div>
     </div>
   );
-};
-
-export default ProfilePage;
+}

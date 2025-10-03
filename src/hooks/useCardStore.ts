@@ -54,6 +54,12 @@ export const useCartStore = create<cartState>((set) => ({
   },
 
   addItem: async (wixClient, productId, variantId, quantity) => {
+    console.log("Adding item to cart:", {
+      wixClient,
+      productId,
+      variantId,
+      quantity,
+    });
     set((state) => ({ ...state, isLoding: true }));
     const response = await wixClient.currentCart.addToCurrentCart({
       lineItems: [

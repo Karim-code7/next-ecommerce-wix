@@ -27,7 +27,6 @@ function ProfileAvatar({ name, email, picture }: any) {
 const Profile = () => {
   const { wixClient, isLoggedIn } = useWixClient();
   const { member, email, fetchMember, isLoading } = useProfileStore();
-
   useEffect(() => {
     if (!member) {
       fetchMember(wixClient, isLoggedIn);
