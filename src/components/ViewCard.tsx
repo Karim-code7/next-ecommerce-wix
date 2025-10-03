@@ -62,7 +62,7 @@ const ViewCard = () => {
               </div>
               {/* PRICE */}
               <div className=" flex flex-col items-end">
-                <p className="font-bold text-xl text-lama-green">
+                <p className="font-bold text-xl text-TrendoGo-green">
                   ${(item.price.amount * item.quantity).toFixed(2)}
                 </p>
                 <p
@@ -80,7 +80,9 @@ const ViewCard = () => {
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg mt-6 flex flex-col items-center gap-4">
             <div className="text-2xl font-bold dark:text-gray-100">
               Total:{" "}
-              <span className="text-lama-green">${cart.subtotal?.amount}</span>
+              <span className="text-TrendoGo-green">
+                ${cart.subtotal?.amount}
+              </span>
             </div>
             <div className="">
               <CheckoutButton cart={cartItems} show={false} />

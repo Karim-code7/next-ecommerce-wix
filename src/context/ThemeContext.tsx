@@ -22,7 +22,6 @@ interface ThemeProviderProps {
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [isDark, setIsDark] = useState<boolean>(() => {
-    // ✅ يقرأ القيمة قبل ما يـrender (منع الفلاش)
     if (typeof window !== "undefined") {
       const savedTheme = localStorage.getItem("theme");
       const prefersDark = window.matchMedia(

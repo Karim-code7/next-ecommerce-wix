@@ -87,7 +87,7 @@ const ProductList = async ({
                 }}
               ></div>
             )}
-            <button className=" mt-4 font-roboto tracking-wide dark:text-gray-200 rounded-2xl ring-1 ring-lama py-2 px-4 text-sm hover:bg-lama   w-max m-auto  transition-all duration-300">
+            <button className=" mt-4 font-roboto tracking-wide dark:text-gray-200 rounded-2xl ring-1 ring-TrendoGo py-2 px-4 text-sm hover:bg-TrendoGo   w-max m-auto  transition-all duration-300">
               {" "}
               Add my Cart
             </button>

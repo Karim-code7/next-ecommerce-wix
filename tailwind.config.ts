@@ -23,9 +23,9 @@ const config: Config = {
       colors: {
         primary: "#1977f2",
 
-        lama: "#F35C7A",
+        TrendoGo: "#F35C7A",
 
-        "lama-green": "#16A34A",
+        "TrendoGo-green": "#16A34A",
 
         secound: "#16A34A",
 

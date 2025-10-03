@@ -88,7 +88,7 @@ const CusomizeProducts = ({
               ) : (
                 <li
                   key={i}
-                  className={` ring-1 ring-lama rounded-md   text-lama py-1 px-4 text-sm font-poppins   `}
+                  className={` ring-1 ring-TrendoGo rounded-md   text-TrendoGo py-1 px-4 text-sm font-poppins   `}
                   style={{
                     cursor: disabled ? "not-allowed" : "pointer",
                     backgroundColor: selcted

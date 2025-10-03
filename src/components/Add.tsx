@@ -81,7 +81,7 @@ const Add = ({
         </div>
         <button
           onClick={() => addItem(wixClient, productId!, variantId!, quantity)}
-          className=" w-36 disabled:text-gray-900 font-poppins rounded-md bg-lama  text-gray-200 p-2 text-sm  cursor-pointer disabled:cursor-not-allowed disabled:bg-pink-200"
+          className=" w-36 disabled:text-gray-900 font-poppins rounded-md bg-TrendoGo  text-gray-200 p-2 text-sm  cursor-pointer disabled:cursor-not-allowed disabled:bg-pink-200"
           disabled={isLoding || saveStock < 1}
         >
           {" "}

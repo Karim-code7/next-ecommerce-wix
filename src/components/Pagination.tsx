@@ -24,14 +24,14 @@ const Pagination = ({
   return (
     <div className=" mt-12 flex justify-between w-full">
       <button
-        className=" disabled:text-gray-900 font-poppins rounded-md bg-lama  text-gray-200 p-2 text-sm w-24 cursor-pointer disabled:cursor-not-allowed disabled:bg-pink-200"
+        className=" disabled:text-gray-900 font-poppins rounded-md bg-TrendoGo  text-gray-200 p-2 text-sm w-24 cursor-pointer disabled:cursor-not-allowed disabled:bg-pink-200"
         disabled={!hasprev}
         onClick={() => createPageUrl(currentPage - 1)}
       >
         Previos
       </button>
       <button
-        className=" disabled:text-gray-900 rounded-md bg-lama font-poppins text-gray-200 p-2 text-sm w-24 cursor-pointer disabled:cursor-not-allowed disabled:bg-pink-200"
+        className=" disabled:text-gray-900 rounded-md bg-TrendoGo font-poppins text-gray-200 p-2 text-sm w-24 cursor-pointer disabled:cursor-not-allowed disabled:bg-pink-200"
         disabled={!hasnext}
         onClick={() => createPageUrl(currentPage + 1)}
       >

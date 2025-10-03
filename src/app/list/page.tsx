@@ -17,7 +17,7 @@ const ListPage = async ({ searchParams }: { searchParams: any }) => {
           <h1 className=" text-4xl font-medium leading-[48px] text-gray-700 font-poppins">
             Grap up to 50% off on <br /> selected Products
           </h1>
-          <button className=" font-pop rounded-3xl bg-lama text-white dark:text-gray-100 w-max py-3 px-5 text-sm ">
+          <button className=" font-pop rounded-3xl bg-TrendoGo text-white dark:text-gray-100 w-max py-3 px-5 text-sm ">
             Buy Now
           </button>
         </div>

@@ -113,7 +113,7 @@ const Navicons = () => {
       >
         <div className="relative">
           <LuShoppingCart className="  cursor-pointer w-7 h-7 text-primary  " />
-          <div className="absolute -top-3 -right-2 rounded-full  w-4 h-4 text-gray-100 text-sm bg-lama z-20 flex justify-center items-center">
+          <div className="absolute -top-3 -right-2 rounded-full  w-4 h-4 text-gray-100 text-sm bg-TrendoGo z-20 flex justify-center items-center">
             {counter}
           </div>
         </div>

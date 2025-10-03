@@ -19,8 +19,8 @@ const Navbar = () => {
       {/*  MOBILE */}
       <div className="flex items-center justify-between h-full md:hidden">
         <Link rel="stylesheet" href="/">
-          <div className="text-lama-green font-medium text-2xl tracking-wider hover:text-green-800 transition-all duration-300  font-poppins ">
-            LAMA
+          <div className="text-TrendoGo-green font-medium text-2xl tracking-wider hover:text-green-800 transition-all duration-300  font-poppins ">
+            TrendoGo
           </div>
         </Link>
         <Menu />
@@ -33,7 +33,7 @@ const Navbar = () => {
             <Image src="/logo.png" alt="" width={24} height={24} />
 
             <div className="text-secound font-medium text-2xl tracking-wider hover:text-green-800 transition-all duration-300  ">
-              LAMA
+              TrendoGo
             </div>
           </Link>
           <div className="     hidden xl:flex gap-4 transition-all duration-300 ">
@@ -42,8 +42,8 @@ const Navbar = () => {
                 className=" text-gray-700 
               dark:text-gray-300 
                 cursor-pointer 
-              hover:text-lama-green 
-              dark:hover:text-lama-green 
+              hover:text-TrendoGo-green 
+              dark:hover:text-TrendoGo-green 
                 font-medium 
                 transition-colors 
                 duration-300"

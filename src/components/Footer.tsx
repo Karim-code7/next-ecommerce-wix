@@ -40,8 +40,8 @@ const Footer = () => {
         {/* LEFT */}
         <div className="w-full md:1/2 lg:w-1/4 flex flex-col gap-8">
           <Link href="/">
-            <div className="text-lama-green font-medium text-2xl tracking-wider hover:text-green-800 transition-all duration-300">
-              LAMA
+            <div className="text-TrendoGo-green font-medium text-2xl tracking-wider hover:text-green-800 transition-all duration-300">
+              TrendoGo
             </div>
           </Link>
           <p className="dark:text-gray-300">
@@ -68,7 +68,7 @@ const Footer = () => {
               {about.map((item, index) => (
                 <Link
                   key={index}
-                  className="hover:text-lama-green dark:hover:text-lama-green font-medium transition-all duration-300"
+                  className="hover:text-TrendoGo-green dark:hover:text-TrendoGo-green font-medium transition-all duration-300"
                   href={item.url}
                 >
                   {item.title}
@@ -84,7 +84,7 @@ const Footer = () => {
               {shop.map((item, index) => (
                 <Link
                   key={index}
-                  className="hover:text-lama-green dark:hover:text-lama-green font-medium transition-all duration-300"
+                  className="hover:text-TrendoGo-green dark:hover:text-TrendoGo-green font-medium transition-all duration-300"
                   href={item.url}
                 >
                   {item.title}
@@ -100,7 +100,7 @@ const Footer = () => {
               {help.map((item, index) => (
                 <Link
                   key={index}
-                  className="hover:text-lama-green dark:hover:text-lama-green font-medium transition-all duration-300"
+                  className="hover:text-TrendoGo-green dark:hover:text-TrendoGo-green font-medium transition-all duration-300"
                   href={item.url}
                 >
                   {item.title}
@@ -151,7 +151,7 @@ const Footer = () => {
 
       {/* Bottom */}
       <div className="flex flex-col justify-between md:flex-row gap-8 mt-16">
-        <div className="text-center">@ 2024 Lama Shop</div>
+        <div className="text-center">@ 2024 TrendoGo Shop</div>
         <div className="flex flex-col items-center gap-8 md:flex-row">
           <div>
             <span className="text-gray-500 font-semibold">Language</span>

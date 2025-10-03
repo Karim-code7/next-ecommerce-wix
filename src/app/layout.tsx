@@ -21,7 +21,7 @@ const roboto = Roboto({
 const fontClass = `${poppins.variable} ${roboto.variable}`;
 
 export const metadata: Metadata = {
-  title: "Lama Dev E-Commerce Application",
+  title: "TrendoGo Dev E-Commerce Application",
   description: "A complete e-commerce application with Next.js and Wix",
 };
 
