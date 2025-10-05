@@ -4,7 +4,7 @@ import { useWixClient } from "@/hooks/useWixClient";
 import { loadStripe } from "@stripe/stripe-js";
 import Link from "next/link";
 import { useState } from "react";
-
+import { useRouter } from "next/navigation";
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
@@ -21,8 +21,12 @@ interface CheckoutButtonProps {
 export default function CheckoutButton({ cart, show }: CheckoutButtonProps) {
   const [loading, setLoading] = useState(false);
   const { isLoggedIn } = useWixClient();
+  const router = useRouter();
 
   async function handleCheckout(cart: any[]) {
+    if (!isLoggedIn) {
+      return router.push("/login");
+    }
     try {
       setLoading(true);
       const res = await fetch("/api/checkout", {

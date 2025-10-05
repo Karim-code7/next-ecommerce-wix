@@ -20,6 +20,7 @@ const CartModal = () => {
       _id: item._id,
       buyerId: cart.buyerInfo?.contactId || "",
     })) || [];
+  console.log(cartItems);
   return (
     <div className="absolute  top-12 right-0 p-4 rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white dark:bg-slate-800 flex flex-col gap-6 z-20">
       {!cart.lineItems?.length ? (

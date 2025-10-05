@@ -2,11 +2,8 @@ import Link from "next/link";
 import Menu from "./Menu";
 import Image from "next/image";
 import SerachBar from "./SearchBar";
-import dynamic from "next/dynamic";
-// import Navicons from "./NavIcons";
+import Navicons from "./NavIcons";
 const Navbar = () => {
-  const Navicons = dynamic(() => import("./NavIcons"), { ssr: false });
-
   const menuItems = [
     { name: "Home", href: "/" },
     { name: "Shop", href: "/list" },
