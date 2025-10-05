@@ -2,6 +2,7 @@ import CategoryList from "@/components/CategoryList";
 import ProductList from "@/components/ProductList";
 import Slider from "@/components/Slider";
 import { Suspense } from "react";
+export const dynamic = "force-dynamic";
 
 const sectionWrapper =
   "pt-24 pb-10 border-t border-gray-300 dark:border-gray-700 ";
