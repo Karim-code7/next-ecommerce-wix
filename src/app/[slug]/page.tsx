@@ -9,7 +9,6 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
     .queryProducts()
     .eq("slug", params.slug)
     .find();
-
   if (!products.items[0]) {
     return notFound();
   }
