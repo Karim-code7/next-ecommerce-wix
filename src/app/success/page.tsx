@@ -3,16 +3,16 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import Confetti from "react-confetti";
-export const dynamic = "force-dynamic";
+
 const SuccessContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-
   const orderId = searchParams.get("orderId");
+
   useEffect(() => {
     const timer = setTimeout(() => {
       if (orderId) {
-        router.push("/orders/order?id=" + orderId);
+        router.push(`/orders/order?id=${orderId}`);
       }
     }, 5000);
 
