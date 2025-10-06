@@ -26,9 +26,9 @@ export async function POST(req: Request) {
         },
         quantity: item.quantity,
       })),
-      success_url: `http://localhost:3000/success?orderId=${body.cart[0].buyerId}`,
+      success_url: `/success?orderId=${body.cart[0].buyerId}`,
 
-      cancel_url: "http://localhost:3000",
+      cancel_url: "/",
     });
 
     return NextResponse.json({ id: session.id });
