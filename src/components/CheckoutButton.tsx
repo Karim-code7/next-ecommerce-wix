@@ -25,7 +25,8 @@ export default function CheckoutButton({ cart, show }: CheckoutButtonProps) {
 
   async function handleCheckout(cart: any[]) {
     if (!isLoggedIn) {
-      return router.push("/login");
+      router.push("/login");
+      return;
     }
     try {
       setLoading(true);
@@ -44,6 +45,8 @@ export default function CheckoutButton({ cart, show }: CheckoutButtonProps) {
       }
     } catch (err) {
       console.error("Checkout error:", err);
+      setLoading(false);
+    } finally {
       setLoading(false);
     }
   }
