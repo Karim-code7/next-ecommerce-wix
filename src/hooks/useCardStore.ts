@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { cart, currentCart } from "@wix/ecom";
+import { currentCart } from "@wix/ecom";
 
 import { WixClient } from "@/context/WixContext";
 

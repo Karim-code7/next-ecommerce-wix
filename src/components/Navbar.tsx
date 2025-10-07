@@ -12,11 +12,11 @@ const Navbar = () => {
   ];
 
   return (
-    <div className=" bg-white dark:text-gray-100 dark:bg-gray-800 transition-background duration-300   h-20 px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64 fixed top-0 left-0 right-0 z-50 shadow-md ">
+    <div className=" bg-white  dark:text-gray-100 dark:bg-gray-800 transition-background duration-300 h-20 px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64 fixed inset-0 z-50 shadow-md ">
       {/*  MOBILE */}
       <div className="flex items-center justify-between h-full md:hidden">
         <Link rel="stylesheet" href="/">
-          <div className="text-trendo-green font-medium text-2xl tracking-wider hover:text-green-800 transition-all duration-300  font-poppins ">
+          <div className="text-secound  font-medium text-2xl tracking-wider hover:text-green-800 transition-all duration-300  font-poppins ">
             TrendoGo
           </div>
         </Link>

@@ -21,8 +21,11 @@ const roboto = Roboto({
 const fontClass = `${poppins.variable} ${roboto.variable}`;
 
 export const metadata: Metadata = {
-  title: "TrendoGo Dev E-Commerce Application",
+  title: "TrendoGo E-commerce",
   description: "A complete e-commerce application with Next.js and Wix",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
@@ -51,7 +54,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900 bg-gradient-to-r from-pink-50 to-yellow-50 ">
+      <body className="dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900 bg-gradient-to-r from-pink-50 to-yellow-50 mt-20 ">
         <ThemeProvider>
           <WixContextProvider>
             <UIContextProvider>
