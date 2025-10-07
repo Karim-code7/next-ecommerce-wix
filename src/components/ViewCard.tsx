@@ -91,7 +91,7 @@ const ViewCard = () => {
         <div className="flex flex-col items-center justify-center h-[60vh] text-center">
           <p className="text-lg dark:text-gray-300">Your cart is empty </p>
           <Link
-            href="/list"
+            href="/list?cat=all-products"
             className="mt-6 bg-primary hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-all"
           >
             Continue Shopping

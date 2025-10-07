@@ -13,7 +13,7 @@ const Slider = () => {
       title: "Summer Sale Collections",
       description: "Sale! Up to 50% off!",
       src: "/fashion1.jpg",
-      url: "/list",
+      url: "/list?cat=all-products",
       bg: "dark:bg-gradient-to-r dark:from-gray-800 dark:to-dark bg-gradient-to-r from-pink-50 to-yellow-50",
     },
     {
@@ -21,7 +21,7 @@ const Slider = () => {
       title: "Winter Sale Collections",
       description: "Sale! Up to 50% off!",
       src: "/fashion2.jpg",
-      url: "/list",
+      url: "/list?cat=all-products",
       bg: "dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900 bg-gradient-to-r from-pink-50 to-yellow-50",
     },
     {
@@ -29,7 +29,7 @@ const Slider = () => {
       title: "Spring Sale Collections",
       description: "Sale! Up to 50% off!",
       src: "/fashion3.jpg",
-      url: "/list",
+      url: "/list?cat=all-products",
       bg: "dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900 bg-gradient-to-r from-pink-50 to-yellow-50",
     },
   ];

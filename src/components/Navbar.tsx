@@ -1,26 +1,44 @@
+"use client";
 import Link from "next/link";
 import Menu from "./Menu";
 import Image from "next/image";
 import SerachBar from "./SearchBar";
 import Navicons from "./NavIcons";
+import { HiMoon, HiSun } from "react-icons/hi";
+import { useTheme } from "@/context/ThemeContext";
+
 const Navbar = () => {
   const menuItems = [
     { name: "Home", href: "/" },
-    { name: "Shop", href: "/list" },
+    { name: "Shop", href: "/list?cat=all-products" },
     { name: "About", href: "/" },
     { name: "Contact", href: "/" },
   ];
+  const { isDark, toggleTheme } = useTheme();
 
   return (
     <div className=" bg-white  dark:text-gray-100 dark:bg-gray-800 transition-background duration-300 h-20 px-4 md:px-8 lg:px-16  xl:px-32 2xl:px-64 fixed inset-0 z-50 shadow-md ">
       {/*  MOBILE */}
+
       <div className="flex items-center justify-between h-full md:hidden">
         <Link rel="stylesheet" href="/">
           <div className="text-secound  font-medium text-2xl tracking-wider hover:text-green-800 transition-all duration-300  font-poppins ">
             TrendoGo
           </div>
         </Link>
-        <Menu />
+        <div className="flex items-center justify-center gap-4">
+          <div
+            className="  cursor-pointer rounded-full p-1 hover:bg-gray-200 transition text-primary"
+            onClick={toggleTheme}
+          >
+            {isDark ? (
+              <HiSun className="w-7 h-7 " />
+            ) : (
+              <HiMoon className="w-7 h-7 " />
+            )}
+          </div>
+          <Menu />
+        </div>
       </div>
       {/* BIGER SCREEN */}
       <div className="hidden md:flex items-center justify-between gap-8 h-full ">

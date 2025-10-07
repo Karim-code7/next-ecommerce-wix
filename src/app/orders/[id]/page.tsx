@@ -71,7 +71,7 @@ const OrderPage = () => {
       {/* Buttons */}
       <div className="flex gap-4 mt-6">
         <Link
-          href="/list"
+          href="/list?cat=all-products"
           className="px-5 py-2 text-sm font-medium rounded-md bg-indigo-600 text-white hover:bg-indigo-700 transition"
         >
           Continue Shopping

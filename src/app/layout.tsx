@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   title: "TrendoGo E-commerce",
   description: "A complete e-commerce application with Next.js and Wix",
   icons: {
-    icon: "/favicon.png",
+    icon: "ficon.png",
   },
 };
 

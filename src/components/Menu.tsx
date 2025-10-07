@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import { useWixClient } from "@/hooks/useWixClient";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/hooks/useCardStore";
+import { HiMenu } from "react-icons/hi";
 export const dynamic = "force-dynamic";
 
 const Menu = () => {
@@ -26,12 +27,10 @@ const Menu = () => {
   const [open, setOpen] = useState(false);
   return (
     <div>
-      <Image
-        src="/menu.png"
-        alt=""
-        width={28}
-        height={28}
-        className="cursor-pointer"
+      <HiMenu
+        className={`cursor-pointer w-7 h-7 text-primary transform transition ${
+          open ? "rotate-90" : "rotate-0"
+        }`}
         onClick={() => setOpen(!open)}
       />
       {open && (
@@ -41,7 +40,10 @@ const Menu = () => {
               Home
             </Link>
 
-            <Link href="/list" className=" hover:text-green-600  w-fit">
+            <Link
+              href="/list?cat=all-products"
+              className=" hover:text-green-600  w-fit"
+            >
               Shop
             </Link>
 
