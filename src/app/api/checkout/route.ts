@@ -11,7 +11,6 @@ export async function POST(req: Request, request: Request) {
     const origin =
       req.headers.get("origin") || process.env.NEXT_PUBLIC_BASE_URL;
 
-    console.log("Checkout body:", origin);
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",

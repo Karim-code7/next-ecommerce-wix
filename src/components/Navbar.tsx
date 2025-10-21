@@ -4,7 +4,15 @@ import Menu from "./Menu";
 import Image from "next/image";
 import SerachBar from "./SearchBar";
 import Navicons from "./NavIcons";
-import { HiMoon, HiSun } from "react-icons/hi";
+import dynamic from "next/dynamic";
+
+const HiSun = dynamic(() => import("react-icons/hi").then((mod) => mod.HiSun), {
+  ssr: false,
+});
+const HiMoon = dynamic(
+  () => import("react-icons/hi").then((mod) => mod.HiMoon),
+  { ssr: false }
+);
 import { useTheme } from "@/context/ThemeContext";
 
 const Navbar = () => {

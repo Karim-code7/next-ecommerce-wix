@@ -10,7 +10,6 @@ import { useUI } from "@/context/UIContext";
 const CartModal = () => {
   const { cart, isLoding, removeItem, counter } = useCartStore();
   const { gradiant } = useUI();
-
   const { wixClient } = useWixClient();
   const cartItems =
     cart.lineItems?.map((item: any) => ({
@@ -34,7 +33,7 @@ const CartModal = () => {
           </div>
 
           {/* LIST */}
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 max-h-80 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
             {cart.lineItems?.map((item) => (
               <div className="flex gap-4 w-full" key={item._id}>
                 {item.image && (
@@ -54,8 +53,8 @@ const CartModal = () => {
                 <div className="flex justify-between flex-col w-full">
                   {/* TOP */}
                   <div>
-                    <div className=" flex items-center justify-between gap-8">
-                      <h2 className="font-roboto font-normal dark:text-gray-100 ">
+                    <div className=" flex items-center justify-between ">
+                      <h2 className="font-roboto font-normal dark:text-gray-100 w-fit ">
                         {item.productName?.original}
                       </h2>
                       <div className="p-1  rounded-sm flex items-center gap-2">
@@ -69,6 +68,20 @@ const CartModal = () => {
                         </p>
                       </div>
                     </div>
+                    {item.descriptionLines?.map((line, index) => (
+                      <div
+                        className="flex items-center gap-2 text-sm font-roboto font-normal mb-2"
+                        key={index}
+                      >
+                        <p className="text-gray-700 dark:text-gray-200">
+                          {line.name?.original}
+                        </p>
+                        <span className="text-gray-400">|</span>
+                        <p className="text-gray-500 dark:text-gray-400">
+                          {line.plainText?.original || line.colorInfo?.original}
+                        </p>
+                      </div>
+                    ))}
                     <div className="text-sm text-green-500 font-roboto">
                       {item.availability?.status}
                     </div>

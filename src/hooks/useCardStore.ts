@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { currentCart } from "@wix/ecom";
-
 import { WixClient } from "@/context/WixContext";
 
 type ExtendedCart = currentCart.Cart & {
@@ -16,60 +15,56 @@ type cartState = {
   isLoding: boolean;
   counter: number;
 
-  getCart: (wixClient: WixClient) => void;
-
+  getCart: (wixClient: WixClient) => Promise<void>;
   addItem: (
     wixClient: WixClient,
     productId: string,
     variantId: string,
     quantity: number
-  ) => void;
-  removeItem: (wixClient: WixClient, itemId: string) => void;
+  ) => Promise<void>;
+  removeItem: (wixClient: WixClient, itemId: string) => Promise<void>;
+  updateItemQuantity: (
+    wixClient: WixClient,
+    itemId: string,
+    quantity: number
+  ) => Promise<void>;
 };
 
 export const useCartStore = create<cartState>((set) => ({
-  cart: [],
-  isLoding: true,
+  cart: {} as ExtendedCart,
+  isLoding: false,
   counter: 0,
+
   getCart: async (wixClient) => {
+    set({ isLoding: true });
     try {
       const cart = await wixClient.currentCart.getCurrentCart();
       set({
-        cart: cart || {},
+        cart: cart || ({} as ExtendedCart),
         isLoding: false,
         counter: cart?.lineItems?.length || 0,
       });
     } catch (error: any) {
       if (error?.details?.applicationError?.code === "OWNED_CART_NOT_FOUND") {
-        set({
-          cart: {} as currentCart.Cart,
-          isLoding: false,
-          counter: 0,
-        });
+        set({ cart: {} as ExtendedCart, isLoding: false, counter: 0 });
       } else {
         console.error("Error fetching cart:", error);
-        set({ cart: [] as currentCart.Cart, isLoding: false, counter: 0 });
+        set({ cart: {} as ExtendedCart, isLoding: false, counter: 0 });
       }
     }
   },
 
   addItem: async (wixClient, productId, variantId, quantity) => {
-    console.log("Adding item to cart:", {
-      wixClient,
-      productId,
-      variantId,
-      quantity,
-    });
-    set((state) => ({ ...state, isLoding: true }));
+    set({ isLoding: true });
     const response = await wixClient.currentCart.addToCurrentCart({
       lineItems: [
         {
           catalogReference: {
-            appId: process.env.NEXT_PUBLIC_WIX_APP_ID,
+            appId: process.env.NEXT_PUBLIC_WIX_APP_ID!,
             catalogItemId: productId,
             ...(variantId && { options: { variantId } }),
           },
-          quantity: quantity,
+          quantity,
         },
       ],
     });
@@ -79,8 +74,9 @@ export const useCartStore = create<cartState>((set) => ({
       isLoding: false,
     });
   },
+
   removeItem: async (wixClient, itemId) => {
-    set((state) => ({ ...state, isLoding: true }));
+    set({ isLoding: true });
     const response = await wixClient.currentCart.removeLineItemsFromCurrentCart(
       [itemId]
     );
@@ -90,7 +86,16 @@ export const useCartStore = create<cartState>((set) => ({
       isLoding: false,
     });
   },
+
+  updateItemQuantity: async (wixClient, itemId, quantity) => {
+    set({ isLoding: true });
+    const response = await (
+      wixClient.currentCart.updateCurrentCartLineItemQuantity as any
+    )([{ id: itemId, quantity }]);
+    set({
+      cart: response.cart,
+      counter: response.cart?.lineItems?.length || 0,
+      isLoding: false,
+    });
+  },
 }));
-function get() {
-  throw new Error("Function not implemented.");
-}

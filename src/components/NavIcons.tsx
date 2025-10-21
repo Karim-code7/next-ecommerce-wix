@@ -12,9 +12,15 @@ import Notification from "./Notification";
 import { FaRegBell } from "react-icons/fa6";
 import { LuShoppingCart } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
-import { HiSun, HiMoon } from "react-icons/hi";
+import dynamic from "next/dynamic";
 import { useTheme } from "../context/ThemeContext";
-
+const HiSun = dynamic(() => import("react-icons/hi").then((mod) => mod.HiSun), {
+  ssr: false,
+});
+const HiMoon = dynamic(
+  () => import("react-icons/hi").then((mod) => mod.HiMoon),
+  { ssr: false }
+);
 const Navicons = () => {
   const { wixClient, isLoggedIn } = useWixClient();
   const router = useRouter();
